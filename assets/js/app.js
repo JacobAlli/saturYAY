@@ -20,15 +20,6 @@
   var queryURL = "";
 
   $(document).on("click", "#add-activity", function(){
-    event = $("#activity-input").val().trim().replace(" ","+");
-    elocation = "+in+" + $("#location-input").val().trim().replace(" ","+");
-    console.log(event);
-
-    searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
-    console.log(searchurl);
-  });
-
-  $(document).on("click", "#add-activity", function(){
     elocation = "+in+" + $("#location-input").val().trim().replace(" ","+");
     console.log(elocation);
     event = $("#activity-input").val().trim().replace(" ","+");
@@ -70,14 +61,29 @@ console.log(queryURL);
           //create a new activity element with jquery
           var name = results[i].name;
           var actDiv = $("<div>");
-          var linkInput = $("<button>");
-
-          //set attribute values
-          actDiv.text(name);
-          actDiv.append(linkInput);
+          
+          //add attributes
           actDiv.attr("address", results[i].formatated_address);
           actDiv.attr("cords", results[i].geometry.location);
           actDiv.attr("alt", results[i].geometry.icon);
+          
+            //button to link          
+            var linkInput = $("<button>");
+            linkInput.text("view site");
+
+            //button to add to calendar
+            var calendarbtn = $("<button>");
+            var calendarinpt = $("<input>");
+            calendarinpt.attr("placeholder","What time?");
+            calendarbtn.text("Add");
+            calendarbtn.attr("class","calendaradd");
+
+          //add child divs to actDiv
+          actDiv.text(name);
+          actDiv.append(linkInput);
+          actDiv.append(calendarinpt);
+          actDiv.append(calendarbtn);
+
 
           //in the images id, add cat images
           $("#workingPlan").append(actDiv);
@@ -86,6 +92,14 @@ console.log(queryURL);
 
   });
 
+//////////////////////////
+//Submit event to calendar
+//////////////////////////
+
+
+////////////////////////////////////////
+//Reset "Working Plan" and Search Fields
+////////////////////////////////////////
 
   ////////////////
   //near by search
