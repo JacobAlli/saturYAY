@@ -19,25 +19,25 @@
   var proxy = "";
   var queryURL = "";
 
-  $(document).on("click", "#searchbtnevents", function(){
-    event = $("#eventsearchbox").val().trim().replace(" ","+");
-    elocation = "+in+" + $("#locationsearchbox").val().trim().replace(" ","+");
+  $(document).on("click", "#add-activity", function(){
+    event = $("#activity-input").val().trim().replace(" ","+");
+    elocation = "+in+" + $("#location-input").val().trim().replace(" ","+");
     console.log(event);
-    
+
     searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
     console.log(searchurl);
   });
 
-  $(document).on("click", "#searchbtnlocation", function(){
-    elocation = "+in+" + $("#locationsearchbox").val().trim().replace(" ","+");
+  $(document).on("click", "#add-activity", function(){
+    elocation = "+in+" + $("#location-input").val().trim().replace(" ","+");
     console.log(elocation);
-    event = $("#eventsearchbox").val().trim().replace(" ","+");
+    event = $("#activity-input").val().trim().replace(" ","+");
     searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
- 
+
     proxy = "https://cors-anywhere.herokuapp.com/";
     queryURL = proxy + searchurl;
 
-  });  
+  });
 
 
 //////////////////
@@ -46,9 +46,9 @@
   ///////
   //CORS/
   ///////
-  
 
-  $(document).on("click", "#searchbtnlocation", function(){
+
+  $(document).on("click", "#add-activity", function(){
 console.log(searchurl);
 console.log(queryURL);
     //make an ajax call to grab API
@@ -61,11 +61,11 @@ console.log(queryURL);
     .done(function(response) {
       console.log(response.results);
       var results=response.results;
-      
+
       // grab the returned image url
        for (i=0; i<results.length; i++) {
-          
-          
+
+
 
           //create a new activity element with jquery
           var name = results[i].name;
@@ -96,7 +96,7 @@ console.log(queryURL);
       //key
       //location - latitude,longitude.
       //radius
-    
+
     //Optional
       //rankby
       //language
