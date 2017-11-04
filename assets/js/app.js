@@ -16,6 +16,9 @@
   var event = "";
   var elocation = "";
   var searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
+  var proxy = "";
+  var queryURL = "";
+
   $(document).on("click", "#searchbtnevents", function(){
     event = $("#eventsearchbox").val().trim().replace(" ","+");
     elocation = "+in+" + $("#locationsearchbox").val().trim().replace(" ","+");
@@ -30,8 +33,59 @@
     console.log(elocation);
     event = $("#eventsearchbox").val().trim().replace(" ","+");
     searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
-console.log(searchurl);
+ 
+    proxy = "https://cors-anywhere.herokuapp.com/";
+    queryURL = proxy + searchurl;
+
   });  
+
+
+//////////////////
+//List API Results
+//////////////////
+  ///////
+  //CORS/
+  ///////
+  
+
+  $(document).on("click", "#searchbtnlocation", function(){
+console.log(searchurl);
+console.log(queryURL);
+    //make an ajax call to grab API
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+
+    //When request is complete, run function
+    .done(function(response) {
+      console.log(response.results);
+      var results=response.results;
+      
+      // grab the returned image url
+       for (i=0; i<results.length; i++) {
+          
+          
+
+          //create a new activity element with jquery
+          var name = results[i].name;
+          var actDiv = $("<div>");
+          var linkInput = $("<button>");
+
+          //set attribute values
+          actDiv.text(name);
+          actDiv.append(linkInput);
+          actDiv.attr("address", results[i].formatated_address);
+          actDiv.attr("cords", results[i].geometry.location);
+          actDiv.attr("alt", results[i].geometry.icon);
+
+          //in the images id, add cat images
+          $("#workingPlan").append(actDiv);
+          };
+      })
+
+  });
+
 
   ////////////////
   //near by search
