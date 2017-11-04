@@ -1,0 +1,24 @@
+#activity-input{
+	float: left;
+	clear: right;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#location-input {
+	float: left;
+	clear: right;
+	width: 200px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.form-group p{
+	float: left;
+
+}
+
+label {
+	float: left;
+}
+
