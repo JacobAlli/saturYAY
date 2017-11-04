@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RPSMultiplayer</title>
+	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+
+</head>
+	<body>
+		<div class = "container">
+			<div class = "jumbotron">
+				<h2 class="titlecharacter"><div style="color: white; font-size: 30px"></div>
+				</h2>
+				<h1 style="font-size: 75px; font-weight: bolder; text-align:center">
+				satur-YAY
+				</h1>
+				<h3 style="text-align:center">
+				Plan your day right. 
+				</h3>
+			</div>
+			<div style="text-align: center">
+				Search for an Activity:
+				<br>
+				<input class="search" style="width: 75%" type="text" id="eventsearchbox">
+				<button id="searchbtnevents" class="btn btn-danger" value="Search Events">
+				Go
+				</button>
+			</div>
+			<div id='characters' class="panel panel-default">
+	  			<div class="panel-body">
+	  			Top Searches:
+	  			<br>
+	  				<button id="Resutrant" class="col-md-2 btn btn-primary"">
+	  				Kansas City
+	  				</button>
+	  				<button id="Entertainment" class="col-md-2 btn btn-primary"">
+	  				Downtown
+	  				</button>
+	  				<button id="Hospital" class="col-md-2 btn btn-primary"">
+	  				Plaza
+	  				</button>
+	  				<button id="Museum" class="col-md-2 btn btn-primary"">
+	  				Museums
+	  				</button>
+	  				<button id="Pet" class="col-md-2 btn btn-primary"">
+	  				Pet Stores
+	  				</button>
+	  			</div>
+			</div>
+
+			<div style="text-align: center">
+				and a Location:
+				<br>
+				<input class="search" style="width: 75%" type="text" id="locationsearchbox">
+				<button id="searchbtnlocation" class="btn btn-danger" value="Search Location">
+				Go
+				</button>
+			</div >
+			<div id='characters' class="panel panel-default">
+	  			<div class="panel-body">
+	  			Top Searches:
+	  			<br>
+	  				<button id="Resutrant" class="col-md-2 btn btn-primary"">
+	  				Resutrants
+	  				</button>
+	  				<button id="Entertainment" class="col-md-2 btn btn-primary"">
+	  				Entertainment
+	  				</button>
+	  				<button id="Hospital" class="col-md-2 btn btn-primary"">
+	  				Hospitals
+	  				</button>
+	  				<button id="Museum" class="col-md-2 btn btn-primary"">
+	  				Museums
+	  				</button>
+	  				<button id="Pet" class="col-md-2 btn btn-primary"">
+	  				Pet Stores
+	  				</button>
+	  			</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="assets/js/app.js"></script>	
+
+	</body>
+</html>
