@@ -38,6 +38,7 @@
 //////////////////
 // Set up Uber API
 //////////////////
+  //https://www.thinkful.com/learn/uber-api/#Fetching-Time-Estimates-from-Uber
   function UberAPI (){
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
@@ -49,9 +50,11 @@
     // Update latitude and longitude
       userLatitude = position.coords.latitude;
       userLongitude = position.coords.longitude;
-      console.log(userLatitude);
-      console.log(userLongitude);
+      console.log("User Lat: " + userLatitude);
+    console.log("User Long: " + userLongitude);
+
     });
+    
     
     // Uber API Constants
     var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
@@ -60,9 +63,14 @@
     
     var aLatitude = 38.8996479;
     var aLongitude = -94.7261206;
+    var bLatitude = 39.1400216;
+    var bLongitude = -94.5799362;
 
-    var bLatitude = JSON.stringify($(this).attr("lat"));
-    var bLongitude = JSON.stringify($(this).attr("long"));
+    // var bLatitude = JSON.stringify($(this).attr("lat"));
+    // var bLongitude = JSON.stringify($(this).attr("long"));
+    // console.log($(this).parent().attr("lat"));
+    // console.log("Dest Lat: " + bLatitude);
+    // console.log("Dest Long: " + bLongitude);
     
     // Edwards Campus cords
     // var aLatitude = 38.8996479;
@@ -108,6 +116,7 @@
   $(document).on("click", ".uberbtn", function(){
     UberAPI(); 
   });
+
 /////////////////////////////
 //Click Uber Button in Agenda
 /////////////////////////////
