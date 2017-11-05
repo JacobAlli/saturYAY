@@ -53,6 +53,7 @@ console.log(queryURL);
       console.log(response.results);
       var results=response.results;
 
+
       // counter for input targeting
       var counter = 0;
       $("#workingPlan").empty();
@@ -65,6 +66,7 @@ console.log(queryURL);
           //create a new activity element with jquery
           var name = results[i].name;
           var actDiv = $("<div>");
+
           console.log(results[i].formatted_address);
           //add attributes
           actDiv.attr("address", results[i].formatted_address);
@@ -73,14 +75,17 @@ console.log(queryURL);
           actDiv.attr("venue-name", name)
 
             //button to link
+
             var linkInput = $("<button>");
             linkInput.text("view site");
 
             //button to add to calendar
             var calendarbtn = $("<button>");
             var calendarinpt = $("<input>");
+
             calendarinpt.attr("data-counter", counter);
             calendarinpt.addClass("calinput");
+
             calendarinpt.attr("placeholder","What time?");
             calendarbtn.text("Add");
             calendarbtn.attr("class","calendaradd");
@@ -90,6 +95,7 @@ console.log(queryURL);
           actDiv.append(linkInput);
           actDiv.append(calendarinpt);
           actDiv.append(calendarbtn);
+
 
           // increment counter
           counter++;
@@ -101,6 +107,7 @@ console.log(queryURL);
       })
 
   });
+
 
   $(document).on('click', '.calendaradd', function(){
      var tableRow = $("<tr>");
@@ -122,6 +129,7 @@ console.log(queryURL);
 
 
   })
+
 
 //////////////////////////
 //Submit event to calendar
