@@ -9,15 +9,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+
 	<!--<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>-->
 
 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	
-	
+
+
 </head>
 <body>
-	
+
 
 <div class="container">
 
@@ -27,31 +28,36 @@
 <!--Search Box-->
 	<div class="row">
 		<div id="search">
+
 			<div class="col-sm-12">
+
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">WHAT DO YOU WANT TO DO?</h3>
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-sm-7" pull="left">
-								<form role="form">
+
+							<div class="col-sm-7 pull-left">
+
+
 									<div class="form-group">
 										<label for="message-input">Search Here:    </label>
 										<input class="form-control" id="activity-input" type="message" style="width: 200px">
 										<p>in</p>
 										<input class="form-control" id="location-input" type="message" style="width:200px">
 									</div>
-								</form>
+
 								<div class="submitBtn">
 									<button class=" btn btn-default" id="add-activity" type="submit">Send</button>
 								</div>
 							</div>
-						
-						
 
-						<div class="col-sm-5" pull="right">
+
+
+						<div class="col-sm-5 pull-right">
 							<div class="form-group" >
+
 								<h3>Popular Ideas</h3>
 									<button class="btn btn-info" id="popIdea" type="select">Sky Diving</button>
 
@@ -60,78 +66,73 @@
 									<button class="btn btn-info" id="popIdea" type="select">Tennis</button>
 
 									<button class="btn btn-info" id="popIdea" type="select">Drinking</button>
-									
+
 									<button class="btn btn-info" id="popIdea" type="select">Movies</button>
 							</div>
 						</div>
 					</div>
-					
 				</div>
-			</div>	
-		</div>			
-	</div>		
-	
+			</div>
+		</div>
+	</div>
 
-	<!--Plan Box-->	
-	
+
+	<!--Plan Box-->
+
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">THE PLAN</h3>
+
+					<h3 class="panel-title">AGENDA</h3>
 				</div>
-				<div class="panel-body" id="plan">
-					<table class="table table-hover">
+				<div class="panel-body">
+					<table id="myTable" class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col">Time</th>
-								<th scope="col">Place</th>
+								<th>VENUE</th>
+								<th>TIME</th>
+								<th>ADDRESS</th>
 							</tr>
 						</thead>
-
-						<tbody>
-							<tr>
-								<td id="tTime"></td>
-								<td id="tEvent"></td>
-							</tr>
+						<tbody class="calTBody">
 						</tbody>
 					</table>
 
-
-
-					
-
 				</div>
 			</div>
+		</div>
+	</div>
 
 
-		
+	<div class="row">
+
+		<div class="col-sm-4">
+
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">MESSAGE HERE</h3>
 			</div>
 			<div class="panel-body" id="message">
+
 				<div id="messages">
 					<p>Renee: Lets go to a movie!</p>
 					<p>Ben: no.</p>
 					<p>Jacob: still drunk.</p>
 				</div>
-					<form role="form">
 						<div class="form-group">
 							<label for="message-input">Message:</label>
 							<input class="form-control" id="message-input" type="message" >
 						</div>
 						<button class=" btn btn-default" id="add-message" type="submit">Send</button>
 
-					</form>
-				
-			</div>
-		
+				</div>
 
-	</div>
+
+			</div>
 
 		</div>
-		
+
 		<div class="col-sm-7">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -144,9 +145,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	
 
 </div>
 

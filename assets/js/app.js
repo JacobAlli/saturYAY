@@ -53,6 +53,11 @@ console.log(queryURL);
       console.log(response.results);
       var results=response.results;
 
+
+      // counter for input targeting
+      var counter = 0;
+      $("#workingPlan").empty();
+
       // grab the returned image url
        for (i=0; i<results.length; i++) {
 
@@ -61,19 +66,26 @@ console.log(queryURL);
           //create a new activity element with jquery
           var name = results[i].name;
           var actDiv = $("<div>");
-          
+
+          console.log(results[i].formatted_address);
           //add attributes
-          actDiv.attr("address", results[i].formatated_address);
+          actDiv.attr("address", results[i].formatted_address);
           actDiv.attr("cords", results[i].geometry.location);
           actDiv.attr("alt", results[i].geometry.icon);
-          
-            //button to link          
+          actDiv.attr("venue-name", name)
+
+            //button to link
+
             var linkInput = $("<button>");
             linkInput.text("view site");
 
             //button to add to calendar
             var calendarbtn = $("<button>");
             var calendarinpt = $("<input>");
+
+            calendarinpt.attr("data-counter", counter);
+            calendarinpt.addClass("calinput");
+
             calendarinpt.attr("placeholder","What time?");
             calendarbtn.text("Add");
             calendarbtn.attr("class","calendaradd");
@@ -85,12 +97,39 @@ console.log(queryURL);
           actDiv.append(calendarbtn);
 
 
+          // increment counter
+          counter++;
+
+
           //in the images id, add cat images
           $("#workingPlan").append(actDiv);
           };
       })
 
   });
+
+
+  $(document).on('click', '.calendaradd', function(){
+     var tableRow = $("<tr>");
+     var venue = $("<td>");
+     var time = $("<td>");
+     var address = $("<td>");
+
+
+     venue.html($(this).parent().attr("venue-name"));
+     time.html($(this).parent().children(".calinput").val());
+     time.addClass("item");
+     address.html($(this).parent().attr("address"));
+
+     tableRow.append(venue);
+     tableRow.append(time);
+     tableRow.append(address);
+
+     $(".calTBody").append(tableRow);
+
+
+  })
+
 
 //////////////////////////
 //Submit event to calendar
