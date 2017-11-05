@@ -113,9 +113,8 @@
 ///////////////////////////////////
 //Click Uber Button in Working Plan
 ///////////////////////////////////
-  $(document).on("click", ".uberbtn", function(){
-    UberAPI(); 
-  });
+  $(document).on("click", ".uberbtn", UberAPI);
+
 
 /////////////////////////////
 //Click Uber Button in Agenda
