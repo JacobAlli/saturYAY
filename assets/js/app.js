@@ -39,19 +39,21 @@
 // Set up Uber API
 //////////////////
   //https://www.thinkful.com/learn/uber-api/#Fetching-Time-Estimates-from-Uber
-  function UberAPI (){
-    var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
-
     // create placeholder variables
     var userLatitude;
     var userLongitude;
 
+  function UberAPI (){
+    var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
+
+    
+    
     navigator.geolocation.watchPosition(function(position) {
     // Update latitude and longitude
       userLatitude = position.coords.latitude;
       userLongitude = position.coords.longitude;
       console.log("User Lat: " + userLatitude);
-    console.log("User Long: " + userLongitude);
+      console.log("User Long: " + userLongitude);
 
     });
     
@@ -65,6 +67,7 @@
     var aLongitude = -94.7261206;
     var bLatitude = 39.1400216;
     var bLongitude = -94.5799362;
+
 
     // var bLatitude = JSON.stringify($(this).attr("lat"));
     // var bLongitude = JSON.stringify($(this).attr("long"));
@@ -238,7 +241,6 @@
      var time = $("<td>");
      var address = $("<td>");
 
-
      venue.html($(this).parent().attr("venue-name"));
      time.html($(this).parent().children(".calinput").val());
      time.addClass("item");
@@ -261,8 +263,6 @@
     $("#activity-input").val('');
     $("#location-input").val('');
   });
-
-
 
 
 
