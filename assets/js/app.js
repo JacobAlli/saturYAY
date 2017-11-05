@@ -38,7 +38,7 @@
 //////////////////
 // Set up Uber API
 //////////////////
-  // function UberAPI (){
+  function UberAPI (){
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
     // create placeholder variables
@@ -49,17 +49,29 @@
     // Update latitude and longitude
       userLatitude = position.coords.latitude;
       userLongitude = position.coords.longitude;
+      console.log(userLatitude);
+      console.log(userLongitude);
     });
     
     // Uber API Constants
     var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
     var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
     
-    var aLatitude = 39.07207;
-    var aLongitude = -94.581363;
-    var bLatitude = 39.1400216;
-    var bLongitude = -94.5799362;
     
+    var aLatitude = 38.8996479;
+    var aLongitude = -94.7261206;
+
+    var bLatitude = JSON.stringify($(this).attr("lat"));
+    var bLongitude = JSON.stringify($(this).attr("long"));
+    
+    // Edwards Campus cords
+    // var aLatitude = 38.8996479;
+    // var aLongitude = -94.7261206;
+    
+    //chicken n pickle's cords
+    // var bLatitude = 39.1400216;
+    // var bLongitude = -94.5799362;    
+
     navigator.geolocation.watchPosition(function(position) {
     // Update latitude and longitude
       //userLatitude = position.coords.latitude;
@@ -88,7 +100,17 @@
         }
       });
     }
-  // }
+  }
+
+///////////////////////////////////
+//Click Uber Button in Working Plan
+///////////////////////////////////
+  $(document).on("click", ".uberbtn", function(){
+    UberAPI(); 
+  });
+/////////////////////////////
+//Click Uber Button in Agenda
+/////////////////////////////
 
 ///////////////////
 // List API Results
@@ -112,6 +134,11 @@
       console.log(response.results);
       var results=response.results;
 
+
+      // counter for input targeting
+      var counter = 0;
+      $("#workingPlan").empty();
+
       // grab the returned image url
        for (i=0; i<results.length; i++) {
 
@@ -126,6 +153,7 @@
           actDiv.attr("lat", results[i].geometry.location.lat);
           actDiv.attr("long", results[i].geometry.location.lng);
           actDiv.attr("alt", results[i].icon);
+          actDiv.attr("venue-name", name);
           
             ///////////
             //add image
@@ -153,10 +181,14 @@
             ///////////////////////////
             //button to add to calendar
             ///////////////////////////
-            var calendarbtn = $("<button>");
+            
             var calendarinpt = $("<input>");
             calendarinpt.attr("placeholder","What time?");
             calendarinpt.attr("style","height: 30px");
+            calendarinpt.attr("data-counter", counter);
+            calendarinpt.addClass("calinput");
+            
+            var calendarbtn = $("<button>");
             calendarbtn.text("Add");
             calendarbtn.attr("style","height: 30px; margin-left:.5em");
             calendarbtn.attr("class","btn btn-danger calendaradd");
@@ -168,6 +200,8 @@
             
             uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(assets/images/UberButtons/button.png) no-repeat");
             uberBtn.attr("class","btn btn-info uberbtn");
+            uberBtn.attr("lat", results[i].geometry.location.lat);
+            uberBtn.attr("long", results[i].geometry.location.lng);
 
           //add child divs to actDiv
           actDiv.prepend("<br>");
@@ -190,12 +224,34 @@
 ///////////////////////////
 // Submit event to calendar
 ///////////////////////////
+  $(document).on('click', '.calendaradd', function(){
+     var tableRow = $("<tr>");
+     var venue = $("<td>");
+     var time = $("<td>");
+     var address = $("<td>");
+
+
+     venue.html($(this).parent().attr("venue-name"));
+     time.html($(this).parent().children(".calinput").val());
+     time.addClass("item");
+     address.html($(this).parent().attr("address"));
+
+     tableRow.append(venue);
+     tableRow.append(time);
+     tableRow.append(address);
+
+     $(".calTBody").append(tableRow);
+
+
+  })
 
 /////////////////////////////////////////
 // Reset "Working Plan" and Search Fields
 /////////////////////////////////////////
   $(document).on("click", ".calendaradd", function(){
     $("#workingPlan").empty()
+    $("#activity-input").val('');
+    $("#location-input").val('');
   });
 
 
