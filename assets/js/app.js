@@ -38,16 +38,58 @@
 //////////////////
 // Set up Uber API
 //////////////////
-// function UberAPI (){
-//   var servertoken: "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
-//   var clientidtoken: "h31bv5vnzVyYRYhojvmy3tZdSd-IfH4g";
-//   var clientsecret: "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
+  // function UberAPI (){
+    var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
-//   curl -H "Authorization: Token <TOKEN>" \
-//      -H "Content-Type: application/json" \
-//      -H "Accept-Language: en_US" \
-//      'https://api.uber.com/v1.2/products?latitude=37.7752315&longitude=-122.418075'
-// }
+    // create placeholder variables
+    var userLatitude;
+    var userLongitude;
+
+    navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+      userLatitude = position.coords.latitude;
+      userLongitude = position.coords.longitude;
+    });
+    
+    // Uber API Constants
+    var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
+    var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
+    
+    var aLatitude = 39.07207;
+    var aLongitude = -94.581363;
+    var bLatitude = 39.1400216;
+    var bLongitude = -94.5799362;
+    
+    navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+      //userLatitude = position.coords.latitude;
+      //userLongitude = position.coords.longitude;
+
+    // Query Uber API if needed
+      getEstimatesForUserLocation(aLatitude, aLongitude);
+    });
+
+    function getEstimatesForUserLocation(latitude,longitude) {
+      uberproxy = "https://cors-anywhere.herokuapp.com/";
+    uberqueryURL = uberproxy + "https://api.uber.com/v1/estimates/price";
+      $.ajax({
+        url: uberqueryURL,
+        headers: {
+            Authorization: "Token " + uberServerToken
+        },
+        data: {
+            start_latitude: aLatitude,
+            start_longitude: aLongitude,
+            end_latitude: bLatitude,
+            end_longitude: bLongitude
+        },
+        success: function(result) {
+            console.log(result);
+        }
+      });
+    }
+  // }
+
 ///////////////////
 // List API Results
 ///////////////////
@@ -152,6 +194,12 @@
 /////////////////////////////////////////
 // Reset "Working Plan" and Search Fields
 /////////////////////////////////////////
+  $(document).on("click", ".calendaradd", function(){
+    $("#workingPlan").empty()
+  });
+
+
+
 
 
 
