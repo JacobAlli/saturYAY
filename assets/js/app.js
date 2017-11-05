@@ -1,4 +1,6 @@
-  // Initialize Firebase
+//////////////////////
+// Initialize Firebase
+//////////////////////
   var config = {
     apiKey: "AIzaSyBlA3lvNcU3AmMH-FOs_1d_mJn5J1TfE8o",
     authDomain: "saturyay-1509769906764.firebaseapp.com",
@@ -11,6 +13,9 @@
 
   var database = firebase.database();
 
+////////////////////
+// Set up Google API
+////////////////////
   //Google Places API Key AIzaSyBqPqKqVgR6ng2_NNHhNqV4nX7LbbHJbqc;
   var api="&key=AIzaSyBqPqKqVgR6ng2_NNHhNqV4nX7LbbHJbqc";
   var event = "";
@@ -30,18 +35,105 @@
 
   });
 
+//////////////////
+// Set up Uber API
+//////////////////
+  //https://www.thinkful.com/learn/uber-api/#Fetching-Time-Estimates-from-Uber
+    // create placeholder variables
+    var userLatitude;
+    var userLongitude;
 
-//////////////////
-//List API Results
-//////////////////
+  function UberAPI (){
+    var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
+
+    
+    
+    navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+      userLatitude = position.coords.latitude;
+      userLongitude = position.coords.longitude;
+      console.log("User Lat: " + userLatitude);
+      console.log("User Long: " + userLongitude);
+
+    });
+    
+    
+    // Uber API Constants
+    var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
+    var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
+    
+    
+    var aLatitude = 38.8996479;
+    var aLongitude = -94.7261206;
+    var bLatitude = 39.1400216;
+    var bLongitude = -94.5799362;
+
+
+    // var bLatitude = JSON.stringify($(this).attr("lat"));
+    // var bLongitude = JSON.stringify($(this).attr("long"));
+    // console.log($(this).parent().attr("lat"));
+    // console.log("Dest Lat: " + bLatitude);
+    // console.log("Dest Long: " + bLongitude);
+    
+    // Edwards Campus cords
+    // var aLatitude = 38.8996479;
+    // var aLongitude = -94.7261206;
+    
+    //chicken n pickle's cords
+    // var bLatitude = 39.1400216;
+    // var bLongitude = -94.5799362;    
+
+    navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+      //userLatitude = position.coords.latitude;
+      //userLongitude = position.coords.longitude;
+
+    // Query Uber API if needed
+      getEstimatesForUserLocation(aLatitude, aLongitude);
+    });
+
+    function getEstimatesForUserLocation(latitude,longitude) {
+      uberproxy = "https://cors-anywhere.herokuapp.com/";
+    uberqueryURL = uberproxy + "https://api.uber.com/v1/estimates/price";
+      $.ajax({
+        url: uberqueryURL,
+        headers: {
+            Authorization: "Token " + uberServerToken
+        },
+        data: {
+            start_latitude: aLatitude,
+            start_longitude: aLongitude,
+            end_latitude: bLatitude,
+            end_longitude: bLongitude
+        },
+        success: function(result) {
+            console.log(result);
+        }
+      });
+    }
+  }
+
+///////////////////////////////////
+//Click Uber Button in Working Plan
+///////////////////////////////////
+  //
+  $(document).on("click", ".uberbtn", UberAPI);
+
+/////////////////////////////
+//Click Uber Button in Agenda
+/////////////////////////////
+
+///////////////////
+// List API Results
+///////////////////
   ///////
   //CORS/
   ///////
 
 
   $(document).on("click", "#add-activity", function(){
-console.log(searchurl);
-console.log(queryURL);
+  console.log(searchurl);
+  console.log(queryURL);
     //make an ajax call to grab API
     $.ajax({
       url: queryURL,
@@ -66,39 +158,71 @@ console.log(queryURL);
           //create a new activity element with jquery
           var name = results[i].name;
           var actDiv = $("<div>");
-
-          console.log(results[i].formatted_address);
+          
           //add attributes
           actDiv.attr("address", results[i].formatted_address);
-          actDiv.attr("cords", results[i].geometry.location);
-          actDiv.attr("alt", results[i].geometry.icon);
-          actDiv.attr("venue-name", name)
+          actDiv.attr("lat", results[i].geometry.location.lat);
+          actDiv.attr("long", results[i].geometry.location.lng);
+          actDiv.attr("alt", results[i].icon);
+          actDiv.attr("venue-name", name);
+          
+            ///////////
+            //add image
+            ///////////
+            var imgDiv = $("<img>");
+            imgDiv.attr("src",results[i].icon);
+            imgDiv.attr("style","height: 20px");
 
+            //////////
+            //add name
+            //////////
+            var nameDiv = $("<p>");
+            nameDiv.text(name);
+            nameDiv.attr("style","height: 30px");
+          
+
+            ////////////////
             //button to link
-
+            ////////////////         
             var linkInput = $("<button>");
             linkInput.text("view site");
+            linkInput.attr("style","height: 30px ; margin-left:.5em");
+            linkInput.attr("class","btn btn-primary");
 
+            ///////////////////////////
             //button to add to calendar
-            var calendarbtn = $("<button>");
+            ///////////////////////////
+            
             var calendarinpt = $("<input>");
-
+            calendarinpt.attr("placeholder","What time?");
+            calendarinpt.attr("style","height: 30px");
             calendarinpt.attr("data-counter", counter);
             calendarinpt.addClass("calinput");
-
-            calendarinpt.attr("placeholder","What time?");
+            
+            var calendarbtn = $("<button>");
             calendarbtn.text("Add");
-            calendarbtn.attr("class","calendaradd");
+            calendarbtn.attr("style","height: 30px; margin-left:.5em");
+            calendarbtn.attr("class","btn btn-danger calendaradd");
+
+            //////////
+            //Uber API
+            //////////
+            var uberBtn = $("<button>");
+            
+            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(assets/images/UberButtons/button.png) no-repeat");
+            uberBtn.attr("class","btn btn-info uberbtn");
+            uberBtn.attr("lat", results[i].geometry.location.lat);
+            uberBtn.attr("long", results[i].geometry.location.lng);
 
           //add child divs to actDiv
-          actDiv.text(name);
-          actDiv.append(linkInput);
+          actDiv.prepend("<br>");
+          actDiv.append(imgDiv);
+          actDiv.append(nameDiv);
           actDiv.append(calendarinpt);
           actDiv.append(calendarbtn);
-
-
-          // increment counter
-          counter++;
+          actDiv.append(linkInput);
+          actDiv.append(uberBtn);
+          actDiv.append("<br>");
 
 
           //in the images id, add cat images
@@ -108,13 +232,14 @@ console.log(queryURL);
 
   });
 
-
+///////////////////////////
+// Submit event to calendar
+///////////////////////////
   $(document).on('click', '.calendaradd', function(){
      var tableRow = $("<tr>");
      var venue = $("<td>");
      var time = $("<td>");
      var address = $("<td>");
-
 
      venue.html($(this).parent().attr("venue-name"));
      time.html($(this).parent().children(".calinput").val());
@@ -130,16 +255,24 @@ console.log(queryURL);
 
   })
 
+/////////////////////////////////////////
+// Reset "Working Plan" and Search Fields
+/////////////////////////////////////////
+  $(document).on("click", ".calendaradd", function(){
+    $("#workingPlan").empty()
+    $("#activity-input").val('');
+    $("#location-input").val('');
+  });
 
-//////////////////////////
-//Submit event to calendar
-//////////////////////////
 
 
-////////////////////////////////////////
-//Reset "Working Plan" and Search Fields
-////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+////////
+// Notes
+////////
   ////////////////
   //near by search
   ////////////////
