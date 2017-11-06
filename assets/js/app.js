@@ -263,6 +263,12 @@
     $("#activity-input").val('');
     $("#location-input").val('');
   });
+  
+
+  function activatePlacesSearch(){
+    var input = $("#location-input");
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  };
 
 
 

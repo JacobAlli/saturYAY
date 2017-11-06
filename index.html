@@ -18,68 +18,34 @@
 </head>
 <body>
 
-
-<div class="container">
-
-	<div class="jumbotron">
-		<h1>SATUR-YAY!</h1>
-	</div>
-<!--Search Box-->
-	<div class="row">
-		<div id="search">
-
-			<div class="col-sm-12">
-
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">WHAT DO YOU WANT TO DO?</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-
-							<div class="col-sm-7 pull-left">
-
-
-									<div class="form-group">
-										<label for="message-input">Search Here:    </label>
-										<input class="form-control" id="activity-input" type="message" style="width: 200px">
-										<p>in</p>
-										<input class="form-control" id="location-input" type="message" style="width:200px">
-									</div>
-
-								<div class="submitBtn">
-									<button class=" btn btn-default" id="add-activity" type="submit">Send</button>
-								</div>
-							</div>
-
-
-
-						<div class="col-sm-5 pull-right">
-							<div class="form-group" >
-
-								<h3>Popular Ideas</h3>
-									<button class="btn btn-info" id="popIdea" type="select">Sky Diving</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Pickleball</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Tennis</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Drinking</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Movies</button>
-							</div>
-						</div>
-					</div>
-				</div>
+	<div class="header row">
+		<div class="container">
+			
+			<div class="col-md-3">
+				<h1 class="saturyay"><span class="satur">SATUR</span><span class="yay">YAY</span></h1>
 			</div>
+			<div class="col-md-3">
+				<input id="location-input" class="header-input" type="text" placeholder="    Where to?">
+			</div>
+			<div class="col-md-6">
+				<input id ="activity-input" class="header-input2" type="text" placeholder="    What will we do?">
+				<ul class="list-group" id="result">
+					<li style="position: absolute; width: 75%; cursor: pointer; overflow-y: auto; max-height: 400px; box-sizing: border-box; z-index: 1001" class="list-group-item">blah</li>
+					<li style="position: absolute; width: 75%; cursor: pointer; overflow-y: auto; max-height: 400px; box-sizing: border-box; z-index: 1001" class="list-group-item">blah</li>
+					<li style="position: absolute; width: 75%; cursor: pointer; overflow-y: auto; max-height: 400px; box-sizing: border-box; z-index: 1001" class="list-group-item">blah</li>
+					<li style="position: absolute; width: 75%; cursor: pointer; overflow-y: auto; max-height: 400px; box-sizing: border-box; z-index: 1001" class="list-group-item">blah</li>
+				</ul>
+				<button id="add-activity" class="header-btn">Go</button>
+			</div>
+
 		</div>
 	</div>
 
-
+<br><br><br>
 	<!--Plan Box-->
 
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 
@@ -151,9 +117,17 @@
 
 
 
+<script>
+	 function activatePlacesSearch(){
+    var input = document.getElementById('location-input');
+    var options = {
+    	types: ['(cities)']
+    }
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+  };
+</script>
 
-
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 </html>
