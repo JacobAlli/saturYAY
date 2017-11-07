@@ -46,8 +46,8 @@
   function UberAPI (){
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
-    
-    
+
+
     navigator.geolocation.watchPosition(function(position) {
     // Update latitude and longitude
       userLatitude = position.coords.latitude;
@@ -56,13 +56,13 @@
       console.log("User Long: " + userLongitude);
 
     });
-    
-    
+
+
     // Uber API Constants
     var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
     var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
-    
-    
+
+
     var aLatitude = 38.8996479;
     var aLongitude = -94.7261206;
     var bLatitude = 39.1400216;
@@ -74,14 +74,14 @@
     // console.log($(this).parent().attr("lat"));
     // console.log("Dest Lat: " + bLatitude);
     // console.log("Dest Long: " + bLongitude);
-    
+
     // Edwards Campus cords
     // var aLatitude = 38.8996479;
     // var aLongitude = -94.7261206;
-    
+
     //chicken n pickle's cords
     // var bLatitude = 39.1400216;
-    // var bLongitude = -94.5799362;    
+    // var bLongitude = -94.5799362;
 
     navigator.geolocation.watchPosition(function(position) {
     // Update latitude and longitude
@@ -158,14 +158,14 @@
           //create a new activity element with jquery
           var name = results[i].name;
           var actDiv = $("<div>");
-          
+
           //add attributes
           actDiv.attr("address", results[i].formatted_address);
           actDiv.attr("lat", results[i].geometry.location.lat);
           actDiv.attr("long", results[i].geometry.location.lng);
           actDiv.attr("alt", results[i].icon);
           actDiv.attr("venue-name", name);
-          
+
             ///////////
             //add image
             ///////////
@@ -179,11 +179,11 @@
             var nameDiv = $("<p>");
             nameDiv.text(name);
             nameDiv.attr("style","height: 30px");
-          
+
 
             ////////////////
             //button to link
-            ////////////////         
+            ////////////////
             var linkInput = $("<button>");
             linkInput.text("view site");
             linkInput.attr("style","height: 30px ; margin-left:.5em");
@@ -192,13 +192,13 @@
             ///////////////////////////
             //button to add to calendar
             ///////////////////////////
-            
+
             var calendarinpt = $("<input>");
             calendarinpt.attr("placeholder","What time?");
             calendarinpt.attr("style","height: 30px");
             calendarinpt.attr("data-counter", counter);
             calendarinpt.addClass("calinput");
-            
+
             var calendarbtn = $("<button>");
             calendarbtn.text("Add");
             calendarbtn.attr("style","height: 30px; margin-left:.5em");
@@ -208,7 +208,7 @@
             //Uber API
             //////////
             var uberBtn = $("<button>");
-            
+
             uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(assets/images/UberButtons/button.png) no-repeat");
             uberBtn.attr("class","btn btn-info uberbtn");
             uberBtn.attr("lat", results[i].geometry.location.lat);
@@ -263,13 +263,14 @@
     $("#activity-input").val('');
     $("#location-input").val('');
   });
-  
+
 
   function activatePlacesSearch(){
     var input = $("#location-input");
     var autocomplete = new google.maps.places.Autocomplete(input);
   };
 
+var push;
 
 
 
