@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>SATURYAY</title>
+	<title>SATURYAY Master</title>
 
 
 
@@ -20,59 +20,42 @@
 
 
 <div class="container">
-
-	<div class="jumbotron">
-		<h1>SATUR-YAY!</h1>
-	</div>
-<!--Search Box-->
-	<div class="row">
-		<div id="search">
-
+	<div class="header row">
+		<div class="row">
 			<div class="col-sm-12">
 
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">WHAT DO YOU WANT TO DO?</h3>
+
+
+				<div class="col-sm-3">
+					<a class="day" href="#"><h1 class="Saturyay"><span class="satur">SATUR</span></a><span class="yay">YAY</span></h1>
+				</div>
+
+				<div class="col-md-3">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2">Where?</span>
+						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">	
 					</div>
-					<div class="panel-body">
-						<div class="row">
+				</div>
 
-							<div class="col-sm-7 pull-left">
-
-
-									<div class="form-group">
-										<label for="message-input">Search Here:    </label>
-										<input class="form-control" id="activity-input" type="message" style="width: 200px">
-										<p>in</p>
-										<input class="form-control" id="location-input" type="message" style="width:200px">
-									</div>
-
-								<div class="submitBtn">
-									<button class=" btn btn-default" id="add-activity" type="submit">Send</button>
-								</div>
-							</div>
-
-
-
-						<div class="col-sm-5 pull-right">
-							<div class="form-group" >
-
-								<h3>Popular Ideas</h3>
-									<button class="btn btn-info" id="popIdea" type="select">Sky Diving</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Pickleball</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Tennis</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Drinking</button>
-
-									<button class="btn btn-info" id="popIdea" type="select">Movies</button>
-							</div>
-						</div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2">What?</span>
+						<input type="text" id="activity-input" class="form-control" placeholder="Whatchu wanna do fool?" aria-label="What" aria-describedby="basic-addon2">
 					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<button type="button" id="add-activity" class="btn btn-success">Go</button>
 				</div>
 			</div>
 		</div>
+	</div>
+
+
+<br>
+<!--Search Box-->
+	<div class="row">
+		
 	</div>
 
 
@@ -80,7 +63,7 @@
 
 	<div class="row">
 		<div class="col-sm-4">
-			<div class="panel panel-primary">
+			<div class="panel panel-dark">
 				<div class="panel-heading">
 
 					<h3 class="panel-title">AGENDA</h3>
@@ -112,20 +95,27 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">MESSAGE HERE</h3>
 			</div>
-			<div class="panel-body" id="message">
-
-				<div id="messages">
-					<p>Renee: Lets go to a movie!</p>
-					<p>Ben: no.</p>
-					<p>Jacob: still drunk.</p>
-				</div>
-						<div class="form-group">
-							<label for="message-input">Message:</label>
-							<input class="form-control" id="message-input" type="message" >
-						</div>
-						<button class=" btn btn-default" id="add-message" type="submit">Send</button>
-
-				</div>
+			<div>
+		        <div class="panel panel-default">
+		            <div style="overflow-y:scroll"  style="height: 200px" class="panel-body">
+		                <table class="table table-striped">
+		                    <thead>
+		                        <tr>
+		                            <th class="data-header" id="usercom" >User</th>
+		                            <th class="data-header" id="comtime">time</th>
+		                            <th class="data-header" id="comdet">Comment</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody style="overflow-y:scroll" style="height: 200px" class = "comment-data-table"></tbody>
+		                </table>
+		                <input class="comments" style="width: 75%" type="text" id="commdet">
+		                <button id="entercom" class="btn btn-danger" value="Send Comment">
+		                Send Comment
+		                </button>
+		            </div>
+		        </div>
+		        <input id="clearcom" style="width: 100%" class="btn basic disabled" value="clear comments">
+		        </div>
 
 
 			</div>
