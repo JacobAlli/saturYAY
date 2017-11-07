@@ -14,7 +14,7 @@
 
 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	
+
 </head>
 <body>
 
@@ -33,7 +33,7 @@
 				<div class="col-md-3">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2">Where?</span>
-						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">	
+						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">
 					</div>
 				</div>
 
@@ -55,7 +55,7 @@
 <br>
 <!--Search Box-->
 	<div class="row">
-		
+
 	</div>
 
 
@@ -139,7 +139,17 @@
 
 
 
+<script>
+	 function activatePlacesSearch(){
+    var input = document.getElementById('location-input');
+    var options = {
+    	types: ['(cities)']
+    }
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+  };
+</script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 
 
 
