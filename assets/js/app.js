@@ -1,6 +1,7 @@
 //////////////////////
 // Initialize Firebase
 //////////////////////
+//https://console.firebase.google.com/project/saturyay-1509769906764/database
   var config = {
     apiKey: "AIzaSyBlA3lvNcU3AmMH-FOs_1d_mJn5J1TfE8o",
     authDomain: "saturyay-1509769906764.firebaseapp.com",
@@ -42,6 +43,13 @@
     // create placeholder variables
     var userLatitude;
     var userLongitude;
+    var uberX = "uberX " ;
+    var uberXL = "uberXL ";
+    var uberSELECT = "uberSELECT";
+    var uberestimatesDiv = $("<div>");
+    var uberxP = $("<p>");
+    var uberXLP = $("<p>");
+    var uberSELECTP = $("<p>");
 
   function UberAPI (){
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
@@ -54,6 +62,8 @@
       userLongitude = position.coords.longitude;
       console.log("User Lat: " + userLatitude);
       console.log("User Long: " + userLongitude);
+      localStorage.setItem("Lat",userLatitude);
+      localStorage.setItem("Long",userLongitude);
 
     });
     
@@ -63,10 +73,11 @@
     var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
     
     
-    var aLatitude = 38.8996479;
-    var aLongitude = -94.7261206;
+    var aLatitude = localStorage.getItem("Lat");
+    var aLongitude = localStorage.getItem("Long");
     var bLatitude = 39.1400216;
     var bLongitude = -94.5799362;
+
 
 
     // var bLatitude = JSON.stringify($(this).attr("lat"));
@@ -101,13 +112,31 @@
             Authorization: "Token " + uberServerToken
         },
         data: {
-            start_latitude: aLatitude,
-            start_longitude: aLongitude,
+            start_latitude: localStorage.getItem("Lat"),
+            start_longitude: localStorage.getItem("Long"),
             end_latitude: bLatitude,
             end_longitude: bLongitude
         },
+
         success: function(result) {
-            console.log(result);
+          uberX = "uberX " + result.prices[0].estimate;
+          uberXL = "uberXL " + result.prices[1].estimate;
+          uberSELECT = "uberSELECT " + result.prices[2].estimate;
+          uberestimatesDiv = $("<div>");
+          uberxP = $("<p>");
+          uberxP.text(uberX);
+          uberXLP = $("<p>");
+          uberXLP.text(uberXL);
+          uberSELECTP = $("<p>");
+          uberSELECTP.text(uberSELECT);
+
+          uberestimatesDiv.append(uberxP);
+          uberestimatesDiv.append("<br>");
+          uberestimatesDiv.append(uberXLP);
+          uberestimatesDiv.append("<br>");
+          uberestimatesDiv.append(uberSELECTP);
+          console.log(uberestimatesDiv);
+      
         }
       });
     }
@@ -117,7 +146,9 @@
 //Click Uber Button in Working Plan
 ///////////////////////////////////
   //
-  $(document).on("click", ".uberbtn", UberAPI);
+  $(document).on("click", ".uberbtn", function(){
+    UberAPI();
+  });
 
 /////////////////////////////
 //Click Uber Button in Agenda
@@ -129,7 +160,8 @@
   ///////
   //CORS/
   ///////
-
+    var name = "";
+    var actDiv = "";
 
   $(document).on("click", "#add-activity", function(){
   console.log(searchurl);
@@ -156,8 +188,8 @@
 
 
           //create a new activity element with jquery
-          var name = results[i].name;
-          var actDiv = $("<div>");
+          name = results[i].name;
+          actDiv = $("<div>");
           
           //add attributes
           actDiv.attr("address", results[i].formatted_address);
@@ -222,6 +254,7 @@
           actDiv.append(calendarbtn);
           actDiv.append(linkInput);
           actDiv.append(uberBtn);
+
           actDiv.append("<br>");
 
 
@@ -264,6 +297,52 @@
     $("#location-input").val('');
   });
 
+/////////////////
+//COMMENT SECTION
+/////////////////
+  $(document).on("click", "#entercom", function(){
+
+    var userN = localStorage.getItem("nameduser");
+    var commentN = $("#commdet").val().trim();
+    var timeN = Date().trim().split("GMT",1);
+    console.log(timeN);
+    database.ref("Comments").push(
+      {
+      user: userN,
+      time: timeN,
+      comment: commentN,
+    });
+  });
+
+  var commentRef= database.ref("Comments");
+  commentRef.on('value', function(snapshot){
+    $(".comment-data-table").empty();
+    snapshot.forEach(function(childSnapshot) {
+      
+      // console.log(childSnapshot.val().Role);
+      var newTR = $("<tr>");
+      var newuser = $("<td>");
+      var newtime = $("<td>");
+      var newcomm = $("<td>");
+      newcomm.attr("style","width: 70%");
+
+      newuser.text(childSnapshot.val().user);
+      newtime.text(childSnapshot.val().time);
+      newcomm.text(childSnapshot.val().comment);
+      
+      newTR.append(newuser);
+      newTR.append(newtime);
+      newTR.append(newcomm);
+      //console.log(newTR);
+
+     $(".comment-data-table").prepend(newTR);
+     $(".comments").val('');
+      });
+    });
+
+  $(document).on("click", "#clearcom", function(){
+    $(".comments").val('');
+  });
 
 
 
