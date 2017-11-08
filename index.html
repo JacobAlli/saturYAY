@@ -18,6 +18,16 @@
 </head>
 <body>
 
+<div id="username-page">
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">Choose a UserName:</span>
+        <input type="text" id="username-input" class="form-control" placeholder="SmurfMysticPistachio" aria-label="What" aria-describedby="basic-addon2">
+    </div>
+    <button id="usernamesubmit" class="col-md-2 btn btn-primary"">
+    Submit
+    </button>
+</div>
+<div id="main-page">
 
 <div class="container">
 	<div class="header row">
@@ -27,13 +37,16 @@
 
 
 				<div class="col-sm-3">
-					<a class="day" href="#"><h1 class="Saturyay"><span class="satur">SATUR</span></a><span class="yay">YAY</span></h1>
+					<h1 class="Saturyay">
+						<a class="day" href="#"><span class="satur">SATUR</span></a>
+						
+						<span class="yay">YAY</span></h1>
 				</div>
 
 				<div class="col-md-3">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2">Where?</span>
-						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">	
+						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">
 					</div>
 				</div>
 
@@ -54,19 +67,24 @@
 
 <br>
 <!--Search Box-->
-	<div class="row">
-		
-	</div>
-
-
-	<!--Plan Box-->
-
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="panel panel-dark">
+<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-light">
 				<div class="panel-heading">
+					<h3 class="panel-title">THE "WORKING" PLAN</h3>
+				</div>
+			<div class="fixed-table">
+				<div class="panel-body" id="workingPlan">
+					<h2 class="empty-box">Activity Options Will Appear Here</h2>
+				</div>
+			</div>
+			</div>
+		</div>
 
-					<h3 class="panel-title">AGENDA</h3>
+		<div class="col-sm-6">
+			<div class="panel panel-light">
+				<div class="panel-heading">
+					<h3 class="panel-title">Yes or NO?</h3>
 				</div>
 				<div class="panel-body">
 					<table id="myTable" class="table table-hover">
@@ -75,29 +93,56 @@
 								<th>VENUE</th>
 								<th>TIME</th>
 								<th>ADDRESS</th>
+								<th>LIKES</th>
 							</tr>
 						</thead>
 						<tbody class="calTBody">
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+</div>
+
+	<!--Plan Box-->
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-light">
+				<div class="panel-heading">
+
+					<h3 class="panel-title">AGENDA</h3>
+				</div>
+				<div class="panel-body">
+					<table id="agendaTable" class="table table-hover">
+						<thead>
+							<tr>
+								<th>Time</th>
+								<th>Where</th>
+								<th>Type</th>
+								<th>Prices?</th>
+							</tr>
+						</thead>
+					</table>
+
+					
 
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<div class="row">
 
-		<div class="col-sm-4">
 
-			<div class="panel panel-primary">
+
+		<div class="col-sm-6">
+
+			<div class="panel panel-light">
 				<div class="panel-heading">
 					<h3 class="panel-title">MESSAGE HERE</h3>
-			</div>
-			<div>
-		        <div class="panel panel-default">
-		            <div style="overflow-y:scroll"  style="height: 200px" class="panel-body">
+				</div>
+		            <div class="panel-body">
+						<div class="fixed-table">
 		                <table class="table table-striped">
 		                    <thead>
 		                        <tr>
@@ -106,44 +151,46 @@
 		                            <th class="data-header" id="comdet">Comment</th>
 		                        </tr>
 		                    </thead>
-		                    <tbody style="overflow-y:scroll" style="height: 200px" class = "comment-data-table"></tbody>
+		                    <tbody class = "comment-data-table"></tbody>
 		                </table>
-		                <input class="comments" style="width: 75%" type="text" id="commdet">
-		                <button id="entercom" class="btn btn-danger" value="Send Comment">
-		                Send Comment
-		                </button>
 		            </div>
-		        </div>
-		        <input id="clearcom" style="width: 100%" class="btn basic disabled" value="clear comments">
-		        </div>
+		            <div class="submit">
+		                <input class="comments" style="width: 75%" type="text" id="commdet">
 
-
-			</div>
-
-		</div>
-
-		<div class="col-sm-7">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">THE "WORKING" PLAN</h3>
-				</div>
-
-				<div class="panel-body" id="workingPlan">
-
+		                <button id="entercom" class="btn btn-danger" value="Send Comment" style="background-color:rgba(6, 129, 104, 0.5)">
+		                Send
+		                </button>
+		            
+		      
+				        <input id="clearcom" style="width: 100%" class="btn basic disabled" value="clear comments">
+				    </div>	
 				</div>
 			</div>
 		</div>
+	
+		
+
+
+		
 	</div>
-
 </div>
 
+</a></div>
 
 
 
 
+<script>
+	 function activatePlacesSearch(){
+    var input = document.getElementById('location-input');
+    var options = {
+    	types: ['(cities)']
+    }
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+  };
+</script>
 
-
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 </html>

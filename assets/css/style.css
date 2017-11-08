@@ -36,8 +36,7 @@ h1{
 	border: 3px solid black;
 	padding: 10px;
 	text-align: center;
-	color: white;
-	background: black
+	color: green;
 }
 
 .yay{
@@ -47,7 +46,6 @@ h1{
 	padding: 10px 10px 10px 0;
 	text-align: center;
 	color: #5DBF5E;
-	background: black
 }
 
 .header{
@@ -82,17 +80,39 @@ h1{
 	border-radius: 10px;
 }
 
-
+.panel-light {
+	
+	box-shadow: 2px 2px 5px #ccc;
+}
 .panel-heading{
-	background-color: gray;
+	background-color: rgba(29, 30, 25, 0.5);
+	box-shadow: 2px 2px 5px #ccc;
 }
 
 .panel-heading h3{
-	color:white;
+	color:black;
+}
+
+.fixed-table {
+	min-height: 10px;
+	max-height: 300px;
+	overflow-y:scroll;
+}
+
+.empty-box{
+	color: rgba(151, 152, 163, 0.5);
+	text-align: center;
 }
 
 
-
+#main-page {
+    display: none;
+}
+#username-page {
+    display: default;
+    float: left;
+        margin-top: 100px;
+}
 
 
 

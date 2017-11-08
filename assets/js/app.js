@@ -276,6 +276,7 @@
      var venue = $("<td>");
      var time = $("<td>");
      var address = $("<td>");
+     
 
      venue.html($(this).parent().attr("venue-name"));
      time.html($(this).parent().children(".calinput").val());
@@ -348,6 +349,30 @@
     $(".comments").val('');
   });
 
+//////////////
+//Add Username
+//////////////
+  
+    if(localStorage.getItem("nameduser") !== null && localStorage.getItem("nameduser") !== '') {
+      $("#main-page").attr("style","display: block");
+      $("#username-page").attr("style","display: none");
+    }
+    else {
+      $(document).on("click", "#usernamesubmit", function(){
+        if($("#username-input").val() !== null && $("#username-input").val() !== '') {
+          localStorage.setItem("nameduser",$("#username-input").val());
+          $("#main-page").attr("style","display: block");
+          $("#username-page").attr("style","display: none");
+        }
+        else {
+          $("#username-input").attr("placeholder","Good try! Enter a name.");
+          var philipImg = $("<img>");
+          philipImg.attr("src","assets/images/gifs/philip.gif");
+          $("#username-page").append(philipImg);
+          
+        }
+      });
+    }
 
 
 
