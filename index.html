@@ -14,7 +14,7 @@
 
 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	
+
 </head>
 <body>
 
@@ -67,9 +67,22 @@
 
 <br>
 <!--Search Box-->
+<<<<<<< HEAD
 <div class="row">
 		<div class="col-sm-6">
 			<div class="panel panel-light">
+=======
+	<div class="row">
+
+	</div>
+
+
+	<!--Plan Box-->
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="panel panel-dark">
+>>>>>>> 9eda5eedd3cca0b723036482004cfdeb4f02b513
 				<div class="panel-heading">
 					<h3 class="panel-title">THE "WORKING" PLAN</h3>
 				</div>
@@ -178,7 +191,17 @@
 </a></div>
 
 
+<script>
+	 function activatePlacesSearch(){
+    var input = document.getElementById('location-input');
+    var options = {
+    	types: ['(cities)']
+    }
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+  };
+</script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 
 <script>
 	 function activatePlacesSearch(){
