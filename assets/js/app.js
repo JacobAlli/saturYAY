@@ -1,7 +1,7 @@
 //////////////////////
 // Initialize Firebase
 //////////////////////
-//https://console.firebase.google.com/project/saturyay-1509769906764/database
+  //https://console.firebase.google.com/project/saturyay-1509769906764/database
   var config = {
     apiKey: "AIzaSyBlA3lvNcU3AmMH-FOs_1d_mJn5J1TfE8o",
     authDomain: "saturyay-1509769906764.firebaseapp.com",
@@ -36,6 +36,18 @@
 
   });
 
+///////////////////////////////////
+//Click Uber Button in Working Plan
+///////////////////////////////////
+  //
+  var bLatitude="";
+  var bLongitude="";
+  $(document).on("click", ".uberbtn", function(){
+    bLatitude = $(this).parent().attr("lat");
+    bLongitude = $(this).parent().attr("long");
+    UberAPI();
+  });
+
 //////////////////
 // Set up Uber API
 //////////////////
@@ -52,6 +64,7 @@
     var uberSELECTP = $("<p>");
 
   function UberAPI (){
+
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
 
@@ -77,8 +90,43 @@
     var aLongitude = localStorage.getItem("Long");
 
 
-    var bLatitude = 39.1400216;
-    var bLongitude = -94.5799362;
+    console.log(bLatitude);
+    console.log(bLongitude);
+
+
+  //    var itemlat = $(this).parent().attr("lat");
+  //    var itemlong = $(this).parent().attr("long");
+    // var bLatitude = 39.1400216;
+    // var bLongitude = -94.5799362;
+
+
+  var votingRef= database.ref("Voting");
+  votingRef.on('value', function(snapshot){
+    $(".calTBody").empty();
+    snapshot.forEach(function(childSnapshot) {
+      
+     var tableRow = $("<tr>");
+     var venue = $("<td>");
+     var time = $("<td>");
+     var address = $("<td>");
+
+     var itemlat = childSnapshot.val().lat;
+     var itemlong = childSnapshot.val().long;
+     venue.html(childSnapshot.val().name);
+     time.html(childSnapshot.val().time);
+     address.html(childSnapshot.val().address);
+     
+     tableRow.append(venue);
+     tableRow.append(time);
+     tableRow.append(address);
+
+     $(".calTBody").append(tableRow);
+      });
+    });
+
+  $(document).on("click", "#clearcom", function(){
+    $(".comments").val('');
+  });
 
 
 
@@ -123,7 +171,7 @@
         success: function(result) {
           uberX = "uberX " + result.prices[0].estimate;
           uberXL = "uberXL " + result.prices[1].estimate;
-          uberSELECT = "uberSELECT " + result.prices[2].estimate;
+          // uberSELECT = "uberSELECT " + result.prices[2].estimate;
           uberestimatesDiv = $("<div>");
           uberxP = $("<p>");
           uberxP.text(uberX);
@@ -144,17 +192,39 @@
     }
   }
 
-///////////////////////////////////
-//Click Uber Button in Working Plan
-///////////////////////////////////
-  //
-  $(document).on("click", ".uberbtn", function(){
-    UberAPI();
-  });
 
-/////////////////////////////
-//Click Uber Button in Agenda
-/////////////////////////////
+////////////////////////////
+//Add Uber Buttons in Agenda
+////////////////////////////
+  $(document).on("click", ".calendaradd", function(){ 
+    navigator.geolocation.watchPosition(function(position) {
+    // Update latitude and longitude
+      userLatitude = position.coords.latitude;
+      userLongitude = position.coords.longitude;
+      console.log("User Lat: " + userLatitude);
+      console.log("User Long: " + userLongitude);
+      localStorage.setItem("Lat",userLatitude);
+      localStorage.setItem("Long",userLongitude);
+
+    });
+   
+     var itemlat = $(this).parent().attr("lat");
+     var itemlong = $(this).parent().attr("long");
+     var venue = $(this).parent().attr("venue-name");
+     var time = $(this).parent().children(".calinput").val();
+     var address = $(this).parent().attr("address");
+    database.ref("Voting").push(
+      {
+      name: venue,
+      time: time,
+      address: address,
+      lat: itemlat,
+      long: itemlong,
+      upvote: 0,
+      downvote: 0,
+      counter: 0,
+    });
+  });
 
 ///////////////////
 // List API Results
@@ -271,26 +341,58 @@
 ///////////////////////////
 // Submit event to calendar
 ///////////////////////////
-  $(document).on('click', '.calendaradd', function(){
+  // $(document).on('click', '.calendaradd', function(){
+  //    var tableRow = $("<tr>");
+  //    var venue = $("<td>");
+  //    var time = $("<td>");
+  //    var address = $("<td>");
+    
+  //    var itemlat = $(this).parent().attr("lat");
+  //    var itemlong = $(this).parent().attr("long");
+
+  //    venue.html($(this).parent().attr("venue-name"));
+  //    time.html($(this).parent().children(".calinput").val());
+  //    time.addClass("item");
+  //    address.html($(this).parent().attr("address"));
+  //    tableRow.attr("lat",itemlat);
+  //    tableRow.attr("long",itemlong);
+
+  //    tableRow.append(venue);
+  //    tableRow.append(time);
+  //    tableRow.append(address);
+
+  //    $(".calTBody").append(tableRow);
+
+  // })
+
+
+  var votingRef= database.ref("Voting");
+  votingRef.on('value', function(snapshot){
+    $(".calTBody").empty();
+    snapshot.forEach(function(childSnapshot) {
+      
      var tableRow = $("<tr>");
      var venue = $("<td>");
      var time = $("<td>");
      var address = $("<td>");
+
+     var itemlat = childSnapshot.val().lat;
+     var itemlong = childSnapshot.val().long;
+     venue.html(childSnapshot.val().name);
+     time.html(childSnapshot.val().time);
+     address.html(childSnapshot.val().address);
      
-
-     venue.html($(this).parent().attr("venue-name"));
-     time.html($(this).parent().children(".calinput").val());
-     time.addClass("item");
-     address.html($(this).parent().attr("address"));
-
      tableRow.append(venue);
      tableRow.append(time);
      tableRow.append(address);
 
      $(".calTBody").append(tableRow);
+      });
+    });
 
-
-  })
+  $(document).on("click", "#clearcom", function(){
+    $(".comments").val('');
+  });
 
 /////////////////////////////////////////
 // Reset "Working Plan" and Search Fields
@@ -300,7 +402,6 @@
     $("#activity-input").val('');
     $("#location-input").val('');
   });
-
 
 /////////////////
 //COMMENT SECTION
@@ -373,7 +474,6 @@
         }
       });
     }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////
