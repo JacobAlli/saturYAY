@@ -93,7 +93,7 @@ h1{
 	color:black;
 }
 
-.fixed-table {
+.panel-body {
 	min-height: 10px;
 	max-height: 300px;
 	overflow-y:scroll;
@@ -114,9 +114,15 @@ h1{
         margin-top: 100px;
 }
 
+.uberbtn {
+	position: relative;
+}
 
-
-
+.uberpricing {
+	position: absolute;
+	top: -50px;
+	left: -8px;
+}
 
 
 

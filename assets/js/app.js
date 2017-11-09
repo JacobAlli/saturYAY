@@ -42,9 +42,25 @@
   //
   var bLatitude="";
   var bLongitude="";
-  $(document).on("click", ".uberbtn", function(){
+  var uberPrice = $("<div>");
+  $(document).on("mouseover", ".uberbtn", function(){
     bLatitude = $(this).parent().attr("lat");
     bLongitude = $(this).parent().attr("long");
+    
+    //////////
+    //Uber Pricing
+    //////////
+    
+
+    uberPrice.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover");
+    uberPrice.attr("class"," uberpricing");
+          
+    $(this).append(uberPrice);
+    $(this).attr("id",bLatitude);
+
+
+    console.log(bLatitude);
+    console.log(bLongitude);
     UberAPI();
   });
 
@@ -75,6 +91,8 @@
       userLongitude = position.coords.longitude;
       console.log("User Lat: " + userLatitude);
       console.log("User Long: " + userLongitude);
+      console.log(bLatitude);
+      console.log(bLongitude);
       localStorage.setItem("Lat",userLatitude);
       localStorage.setItem("Long",userLongitude);
 
@@ -84,21 +102,12 @@
     // Uber API Constants
     var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
     var uberServerToken = "OiTtlcQ2FoqLvXQCCjlVI2Y319KLPoxOBSNFGsf4";
-
     
     var aLatitude = localStorage.getItem("Lat");
     var aLongitude = localStorage.getItem("Long");
 
-
     console.log(bLatitude);
     console.log(bLongitude);
-
-
-  //    var itemlat = $(this).parent().attr("lat");
-  //    var itemlong = $(this).parent().attr("long");
-    // var bLatitude = 39.1400216;
-    // var bLongitude = -94.5799362;
-
 
   var votingRef= database.ref("Voting");
   votingRef.on('value', function(snapshot){
@@ -124,31 +133,10 @@
       });
     });
 
-  $(document).on("click", "#clearcom", function(){
-    $(".comments").val('');
-  });
-
-
-
-    // var bLatitude = JSON.stringify($(this).attr("lat"));
-    // var bLongitude = JSON.stringify($(this).attr("long"));
-    // console.log($(this).parent().attr("lat"));
-    // console.log("Dest Lat: " + bLatitude);
-    // console.log("Dest Long: " + bLongitude);
-
-    // Edwards Campus cords
-    // var aLatitude = 38.8996479;
-    // var aLongitude = -94.7261206;
-
-    //chicken n pickle's cords
-    // var bLatitude = 39.1400216;
-    // var bLongitude = -94.5799362;
+    // Edwards Campus cords // var aLatitude = 38.8996479;  // var aLongitude = -94.7261206;
+    //chicken n pickle's cords // var bLatitude = 39.1400216; // var bLongitude = -94.5799362;
 
     navigator.geolocation.watchPosition(function(position) {
-    // Update latitude and longitude
-      //userLatitude = position.coords.latitude;
-      //userLongitude = position.coords.longitude;
-
     // Query Uber API if needed
       getEstimatesForUserLocation(aLatitude, aLongitude);
     });
@@ -175,23 +163,25 @@
           uberestimatesDiv = $("<div>");
           uberxP = $("<p>");
           uberxP.text(uberX);
+          uberxP.attr("style","color: orange");
           uberXLP = $("<p>");
           uberXLP.text(uberXL);
-          uberSELECTP = $("<p>");
-          uberSELECTP.text(uberSELECT);
+          uberXLP.attr("style","color: orange");
+          // uberSELECTP = $("<p>");
+          // uberSELECTP.text(uberSELECT);
 
           uberestimatesDiv.append(uberxP);
-          uberestimatesDiv.append("<br>");
+          // uberestimatesDiv.append("<br>");
           uberestimatesDiv.append(uberXLP);
-          uberestimatesDiv.append("<br>");
-          uberestimatesDiv.append(uberSELECTP);
-          console.log(uberestimatesDiv);
-      
+          // uberestimatesDiv.append("<br>");
+          // uberestimatesDiv.append(uberSELECTP);
+          uberPrice.empty();
+          uberPrice.append(uberestimatesDiv);
+
         }
       });
     }
   }
-
 
 ////////////////////////////
 //Add Uber Buttons in Agenda
@@ -314,7 +304,7 @@
             //////////
             var uberBtn = $("<button>");
 
-            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(assets/images/UberButtons/button.png) no-repeat");
+            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover; background: url(assets/images/UberButtons/button.png) no-repeat");
             uberBtn.attr("class","btn btn-info uberbtn");
             uberBtn.attr("lat", results[i].geometry.location.lat);
             uberBtn.attr("long", results[i].geometry.location.lng);
@@ -327,6 +317,8 @@
           actDiv.append(calendarbtn);
           actDiv.append(linkInput);
           actDiv.append(uberBtn);
+
+
 
           actDiv.append("<br>");
 
@@ -406,6 +398,20 @@
 /////////////////
 //COMMENT SECTION
 /////////////////
+  $(document).on('keyup', function (e) {
+    if (e.keyCode == 13 && $("#commdet").val() !== null && $("#commdet").val() !== '') {
+          var userN = localStorage.getItem("nameduser");
+    var commentN = $("#commdet").val().trim();
+    var timeN = Date().trim().split("GMT",1);
+    console.log(timeN);
+    database.ref("Comments").push(
+      {
+      user: userN,
+      time: timeN,
+      comment: commentN,
+    });
+    }
+  });
   $(document).on("click", "#entercom", function(){
 
     var userN = localStorage.getItem("nameduser");
