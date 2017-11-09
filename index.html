@@ -7,13 +7,11 @@
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="slick-1.8.0/slick/slick.css">
+<link rel="stylesheet" href="slick-1.8.0/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 
-	<!--<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>-->
-
-	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 </head>
 <body>
@@ -84,26 +82,27 @@
 		</div>
 
 		<div class="col-sm-6">
-			<div class="panel panel-light">
-				<div class="panel-heading">
-					<h3 class="panel-title">Yes or NO?</h3>
-				</div>
-				<div class="panel-body">
-					<table id="myTable" class="table table-hover">
-						<thead>
-							<tr>
-								<th>VENUE</th>
-								<th>TIME</th>
-								<th>ADDRESS</th>
-								<th>LIKES</th>
-								<th>UBERS</th>
-							</tr>
-						</thead>
-						<tbody class="calTBody">
-						</tbody>
-					</table>
-				</div>
-			</div>
+			<div class="center slider">
+			    <div time-data="0">
+			    	<section class="vertical-center-2 slider">
+
+            		</section>
+		         </div>
+		         <div>
+		            <section class="vertical-center-2 slider">
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+		            </section>
+		         </div>
+		         <div>
+		            <section class="vertical-center-2 slider">
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+			              <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+		            </section>
+			     </div>
+		  </section>
 		</div>
 </div>
 
@@ -178,32 +177,17 @@
 	</div>
 </div>
 
-</a></div>
 
+<!--<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>-->
 
-<script>
-	 function activatePlacesSearch(){
-    var input = document.getElementById('location-input');
-    var options = {
-    	types: ['(cities)']
-    }
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-  };
-</script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<script>
-	 function activatePlacesSearch(){
-    var input = document.getElementById('location-input');
-    var options = {
-    	types: ['(cities)']
-    }
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-  };
-</script>
+<script type="text/javascript" src="slick-1.8.0/slick/slick.min.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7iTqWrDLuLNarDb7hg2fnJTlIJciTc1c&libraries=places&callback=activatePlacesSearch"></script>
 </body>
 </html>

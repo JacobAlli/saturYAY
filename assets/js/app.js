@@ -36,6 +36,15 @@
 
   });
 
+
+      function activatePlacesSearch(){
+      var input = document.getElementById('location-input');
+      var options = {
+        types: ['(cities)']
+      }
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    };
+
 ///////////////////////////////////
 //Click Uber Button in Working Plan
 ///////////////////////////////////
@@ -314,7 +323,7 @@
             //////////
             var uberBtn = $("<button>");
 
-            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(assets/images/UberButtons/button.png) no-repeat");
+            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover;; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAdCAYAAABIdpX5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAAEzElEQVR4Xu3aa1MTVxgH8P0MXlHxxh1CEgJxKCq2kengTLSZOpUpBewQlBEGrOD09sK+ZNRxlAaUjFxaGcpFrOUWkXJ1tJdv9XSfs5xkjf8D0YQ33fPiNxPOf8/DJvtk9+yCkZ/vJ03LNN1Y2o4w8vIqSNMyzcjNLSdNyzTdWNqOMHJyfKRpmaYbS9sRxvHjZaRpmWYcO+YlaWnpFQWD9fGfVUpLT9Hq6l8UDl+HuQrP2c7MzBJVVwfh/K2UlwdgPaS5+f322+8/C+sku38/Cuc7kXH0qJek5eXXornsYwg31sbGv9TScgPmKjxnfn6FIpEhpYWFVbEPgcBnsIYKN9b6+j/09Ok8TU3Nbam+vhXWUKmoOCtq9/ePwH1m0eioeH8TEzPm7bYf1nES48gRD0mhUJP4cOxjiMt1crOxvoG5Cs95+PAXmEllZWfoxYt1Gh2dhrmKz/cJra39LZ6hoDwdFRWBlGqfO1cntuvuvgVzJzEby22+sJw4UbPZWIkxRDZWOMyNhbdBEo2Fc6mj43uam/sTZio+38fioPKtLsrTUV5uNW0qtSORYZqdfb99/z8yDh92kyQbyz6GuFxV8cZCuYpsLJTZ3bz5k3lwlmCmUlaWaCyUp0M2Vk7O9rXb2r6lWGwVZk5iNlap+cLCi1SrsRJjSEnJR5uNdR3mKlZjjcBM4svO8vIbGhh4AnMVvoRaB98H83TIs2EqtQcHx8yz7TLMnMTIznaRxItUPvj2MaS42Gqs5uZOmKvwHP428wJ7enoB4oV7LLYm1kyohorXWy0W2Lw2Q3U7O3+E81Ihz4Z8G41yxuuvK1duiPd4+XI73MZJjEOHXCTxnRV/MPYxpKioMt5YKFfhOYy/0SqLi+vi1p0fOaAaKh5PtajNc1Hdrq5bcF4qvN4zommZfA8I52Njv8MaTmM2Von5wiIbixvHPp7s7cbC2yA8Z2pqVnQ0ypnHc5rGx/8Qt+0oV+F5fGAvXvwa5ungxpLNc+dOH92+HYnr6xsW48+exaipqZ0KCvywhtMYBw8WkyS/9cHgl/ExRH7QDQ3XYK7Cc/hZEMrsLlxooJcvN2Cm4nafFpcrfoaC8nTw58JNe/78V+9kvFAdGho3z7QbYh+Sc6cyDhwoJokXp3zwR0Ym42OIfN7Faw+Uq8jGQpldIBASay2UqfBDW6uxPDBPBzcW1+bnMyj3+6276cHB32DuRGZjFZkvEnp6esW3MxRqFJ2XnFdV1ZqL4Zg49Sdn27EaaxhmEh+8Bw8e0/PnizBXkY1lHXy8zYfiy6xV2w1z1t7+ndimsbEN5k5jZGUVkh0fGP6AuAl4rXP1ahfV1HxOdXVhundvQIxz49XWfvHWvFTwXL4j7Oj4QWl4eEJs19raDWuouFwnxX5Fo0/o0aNft9TT8zOsoSIvs3zZQznjBevk5CytrLwR7yMrq+idbZzE2L+/kJK53afo7t3+eIPZ8YHnP12gedtJroXwJZAPDJq/FW4sVA+Znp6HNVTk2TA7uxTmUmXlp+Lvrfw7ensfw22cwti3r4BU+J/iL11qMU/v1wReU6HttAS+Y+abmsLCSpg7xZaNpWkfyti7N580LdN0Y2k7wtizJ480LdOM3btzSdMyzdi1K5c0LbNy6T92L32KyP3jrQAAAABJRU5ErkJggg==) no-repeat");
             uberBtn.attr("class","btn btn-info uberbtn");
             uberBtn.attr("lat", results[i].geometry.location.lat);
             uberBtn.attr("long", results[i].geometry.location.lng);
@@ -473,8 +482,105 @@
           
         }
       });
-    }
+    };
 
+$(".center").slick({
+        dots: true,
+        infinite: true,
+        centerMode: true,
+        slidesToShow: 1,
+        slidesToScroll: 3,
+        scroll: false,
+        draggable: false,
+      });
+
+$(".vertical-center-2").slick({
+        dots: true,
+        vertical: true,
+        centerMode: true,
+        focusOnSelect: true,
+        arrows: false,
+        verticalSwiping: true,
+        slidesToShow: 1,
+        slidesToScroll: 3,
+      });
+
+// var votingRef= database.ref("Voting");
+//   votingRef.on('value', function(snapshot){
+//     $(".calTBody").empty();
+//     snapshot.forEach(function(childSnapshot) {
+      
+//      var tableRow = $("<tr>");
+//      var venue = $("<td>");
+//      var time = $("<td>");
+//      var address = $("<td>");
+
+//      var itemlat = childSnapshot.val().lat;
+//      var itemlong = childSnapshot.val().long;
+//      venue.html(childSnapshot.val().name);
+//      time.html(childSnapshot.val().time);
+//      address.html(childSnapshot.val().address);
+     
+//      tableRow.append(venue);
+//      tableRow.append(time);
+//      tableRow.append(address);
+
+//      $(".calTBody").append(tableRow);
+//       });
+//     });
+
+// var votingRef= database.ref("Voting");
+//   votingRef.on('value', function(snapshot){
+//     $(".center").empty();
+//     snapshot.forEach(function(childSnapshot) {
+
+//        var vertSlider = $("<section class='vertical-center-2 slider'>");
+//        var timeSection = $("<div>")
+//        var venueCard = $("<div>");
+//        var name = $("<h2>");
+//        var address = $("<p>");
+//        var time = $("<p>");
+
+//        var itemlat = childSnapshot.val().lat;
+//        var itemlong = childSnapshot.val().long;
+//        name.html(childSnapshot.val().name);
+//        time.html(childSnapshot.val().time);
+//        address.html(childSnapshot.val().address);
+       
+//        venueCard.append(name address time)
+
+//        $(".center").children().each(function(){
+
+//        })
+
+//        vertSlider.append(venueCard)
+       
+
+//        $(".center").append(vertSlider);
+//         });
+//       });
+
+
+
+// <section class="vertical-center-2 slider">
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//             </section>
+//           </div>
+//           <div>
+//             <section class="vertical-center-2 slider">
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//             </section>
+//           </div>
+//           <div>
+//             <section class="vertical-center-2 slider">
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//               <div><h2>Venue</h2><br><p>address</p><p>voting</p><p>uber stuff</p><p>time</p></div>
+//             </section>
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -617,3 +723,14 @@
           // university
           // veterinary_care
           // zoo
+
+var test = function(){
+    $(".center div section").each(function(){
+        console.log($(this));
+       $(this).slick('slickAdd', '<div><h2>Venue</h2><br><p>poop</p><p>voting</p><p>uber stuff</p><p>time</p></div>')
+        $(this).slick('reinit');
+        console.log($(this).children().length);
+    });
+};
+
+$(".center div section")
