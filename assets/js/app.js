@@ -733,4 +733,4 @@ var test = function(){
     });
 };
 
-$(".center div section")
+$(".center div section");
