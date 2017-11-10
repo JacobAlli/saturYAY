@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+</style>
+
 
 	<!--<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>-->
 
@@ -17,55 +21,74 @@
 
 </head>
 <body>
-
+<div class="container">
 <div id="username-page">
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon2">Choose a UserName:</span>
-        <input type="text" id="username-input" class="form-control" placeholder="SmurfMysticPistachio" aria-label="What" aria-describedby="basic-addon2">
-    </div>
-    <button id="usernamesubmit" class="col-md-2 btn btn-primary"">
-    Submit
-    </button>
+	
+		<div class="row">
+			
+			<div class="col-sm-12">
+				<div class="uName">
+				<h1 class="Saturyay2">
+					<span class="satur">SATUR</span>
+					<span class="yay">YAY</span>
+				</h1>
+				<p>The best place to plan fun Saturdays with your friends</p>
+
+					
+						
+				    <div class="input-group">
+				        <span class="input-group-addon" id="basic-addon2">Choose a UserName:</span>
+				        <input type="text" id="username-input" class="form-control" placeholder="SmurfMysticPistachio" aria-label="What" aria-describedby="basic-addon2">
+				    </div>
+				    <button id="usernamesubmit" class="btn btn-primary" style="margin:5px">
+				    Submit
+				    </button>
+				
+			</div>
+	</div>
+	</div>
+</div>
 </div>
 <div id="main-page">
 
-<div class="container">
+<div class="container-fluid">
 	<div class="header row">
 		<div class="row">
-			<div class="col-sm-12">
 
-
-
-				<div class="col-sm-3">
+			<div class="col-lg-1"></div>
+				<div class="col-lg-3">
 					<h1 class="Saturyay">
-						<a class="day" href="#"><span class="satur">SATUR</span></a>
+						<span class="satur">SATUR</span>
 						
 						<span class="yay">YAY</span></h1>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2">Where?</span>
 						<input type="text" id="location-input" class="form-control" placeholder="Where you wanna be fool?" aria-label="Where" aria-describedby="basic-addon2">
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2">What?</span>
 						<input type="text" id="activity-input" class="form-control" placeholder="Whatchu wanna do fool?" aria-label="What" aria-describedby="basic-addon2">
 					</div>
 				</div>
 
-				<div class="col-sm-3">
+				<div class="col-sm-1">
 					<button type="button" id="add-activity" class="btn btn-success">Go</button>
 				</div>
-			</div>
+				<div class="col-sm-2"></div>
+				
+			
 		</div>
 	</div>
+</div>
 
-
-<br>
+<div class="container">
+	<br>
 <!--Search Box-->
 
 <div class="row">
@@ -75,20 +98,21 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">THE "WORKING" PLAN</h3>
 				</div>
-			<div class="fixed-table">
-				<div class="panel-body" id="workingPlan">
-					<h2 class="empty-box">Activity Options Will Appear Here</h2>
+				<div class="fixed-table">
+					<div class="panel-body" id="workingPlan">
+						<h2 class="empty-box">Activity Options Will Appear Here</h2>
+					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 
 		<div class="col-sm-6">
 			<div class="panel panel-light">
 				<div class="panel-heading">
-					<h3 class="panel-title">Yes or NO?</h3>
+					<h3 class="panel-title">YAY or NAY</h3>
 				</div>
 				<div class="panel-body">
+					<div class="fixed-table">
 					<table id="myTable" class="table table-hover">
 						<thead>
 							<tr>
@@ -96,12 +120,14 @@
 								<th>TIME</th>
 								<th>ADDRESS</th>
 								<th>LIKES</th>
-								<th>UBERS</th>
 							</tr>
 						</thead>
+
 						<tbody class="calTBody">
+
 						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -117,6 +143,7 @@
 					<h3 class="panel-title">AGENDA</h3>
 				</div>
 				<div class="panel-body">
+					<div class="fixed-table">
 					<table id="agendaTable" class="table table-hover">
 						<thead>
 							<tr>
@@ -126,8 +153,11 @@
 								<th>Prices?</th>
 							</tr>
 						</thead>
-					</table>
+						<tbody class="agendaTable">
 
+						</tbody>
+					</table>
+				</div>
 					
 
 				</div>
@@ -149,6 +179,7 @@
 		                <table class="table table-striped">
 		                    <thead>
 		                        <tr>
+		                        	
 		                            <th class="data-header" id="usercom" >User</th>
 		                            <th class="data-header" id="comtime">time</th>
 		                            <th class="data-header" id="comdet">Comment</th>
@@ -156,25 +187,40 @@
 		                    </thead>
 		                    <tbody class = "comment-data-table"></tbody>
 		                </table>
-		            </div>
-
-				</div>
-			</div>
-	        <div class="submit">
-		        <input class="comments" style="width: 75%" type="text" id="commdet">
-
-		        <button id="entercom" class="btn btn-danger" value="Send Comment" style="background-color:rgba(6, 129, 104, 0.5)">
-		                Send
-		        </button>
+		            	</div>
 		            
+		            <div class="submit">
+		                <input class="comments" style="width: 75%" type="text" id="commdet">
+
+		                <button id="entercom" class="btn btn-success" value="Send Comment">
+		                Send
+		                </button>
+		            </div>
 		      
-<!-- 				        <input id="clearcom" style="width: 100%" class="btn basic disabled" value="clear comments"> -->
-		    </div>	
+				        
+				    	
+					</div>
+			</div>
 		</div>
 	</div>
+	<div class="counter"></div>
+</div>			
+	<div class="container">
+		<div class="row">
+			<nav class="navbar fixed-bottom navbar-light bg-light">
+  				<a class="navbar-brand" href="http://www.hortonworks.com">
+    			<img src="assets/images/Bananaworks.jpg" height="40" class="d-inline-block align-top" alt="Bananaworks">
+			    <span class="navbar-text">
+			    Powered by BananaWorks
+			  </span>
+  			</a>
+			</nav>
+		</div>
+	</div>
+
 </div>
 
-</a></div>
+</body>
 
 
 <script>

@@ -1,3 +1,7 @@
+body{
+	height: 100%;
+}
+
 #activity-input{
 	float: left;
 	clear: right;
@@ -29,23 +33,29 @@ label {
 
 h1{
 	margin: 0;
+	font-family: 'Montserrat', sans-serif;
 }
+
+
+
+
 .satur{
-	font-family: helvetica, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-weight: lighter;
-	border: 3px solid black;
 	padding: 10px;
 	text-align: center;
 	color: green;
+	letter-spacing: 7px;
+	font-size: 40px;
 }
 
 .yay{
-	font-family: helvetica, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-weight: lighter;
-	border: 3px solid black;
 	padding: 10px 10px 10px 0;
 	text-align: center;
 	color: #5DBF5E;
+	font-size: 40px;
 }
 
 .header{
@@ -81,21 +91,25 @@ h1{
 }
 
 .panel-light {
-	
 	box-shadow: 2px 2px 5px #ccc;
 }
+
 .panel-heading{
 	background-color: rgba(29, 30, 25, 0.5);
 	box-shadow: 2px 2px 5px #ccc;
+	text-align: center;
 }
 
 .panel-heading h3{
-	color:black;
+	color:white;
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 3px;
+
 }
 
-.panel-body {
+.fixed-table {
 	min-height: 10px;
-	max-height: 300px;
+	max-height: 350px;
 	overflow-y:scroll;
 }
 
@@ -114,18 +128,147 @@ h1{
         margin-top: 100px;
 }
 
-.uberbtn {
-	position: relative;
+
+#carouselExampleSlidesOnly {
+	background-color: black;
+	width: 200px;
+	height: 200px;
 }
 
-.uberpricing {
-	position: absolute;
-	top: -50px;
-	left: -8px;
+.comment-data-table {
+	height:15px;
+	overflow-x: wrap;
+}
+
+.table-striped{
+	height: 30px;
 }
 
 
+.wImg{
+	width:20px;
+	height: 20px;
+	float:left;
+	clear:right;
+	margin: 5px;
+}
 
+.wName{
+	width: 200px;
+	height:30px;
+	overflow-x: wrap;
+	float: left;
+	margin: 5px;
+	font-family: sans-serif;
+
+
+}
+
+.wWebsite{
+	height: 30px;
+	width: 50px;
+	float: left;
+	clear: right;
+	margin: 5px;
+
+}
+
+
+.wTime {
+	width: 200px;
+	clear: right;
+	float: left;
+	margin: 5px;
+	}
+
+.wAdd{
+	width: 50px;
+	float: left;
+	clear: right;
+	margin: 5px;
+
+}
+
+.wUber{
+	width: 50px;
+	float: left;
+	clear: right;
+	margin: 5px;
+
+}
+
+
+.resultDiv{
+	width:530px;
+	height:100px;
+	margin: 5px;
+}
+
+
+.uName{
+	text-align: center;
+	margin-left: 30%;
+	margin-right: 30%;
+
+}
+
+#username-input{
+	width: 300px;
+
+}
+
+.Saturyay2{
+	text-align: center;
+	font-size: 50px;
+}
+
+.yesBtn{
+	height: 25px;
+	width: 45px;
+	color: white;
+	float: left;
+	clear: right;
+}
+
+.noBtn{
+	height: 25px;
+	width: 45px;
+	color: white;
+	float: left;
+	clear: right;
+}
+
+
+.commentRow{
+	
+}
+
+
+.cUser{
+	font-family: 'Montserrat', sans-serif;
+	letter-spacing: 0px;
+	font-weight: bolder;
+}
+
+.cTime{
+	font-size: 10px;
+	overflow: hidden;
+}
+
+nav img{
+	float: left;
+	clear: right;
+}
+
+a{
+	color: black;
+}
+
+
+.navbar {
+
+
+}
 
 
 
