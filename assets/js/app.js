@@ -405,7 +405,10 @@
 
      yay.html("YES");
      nay.html("NO");
-
+     yay.attr("venue",childSnapshot.val().name);
+     yay.attr("address",childSnapshot.val().address);
+     nay.attr("venue",childSnapshot.val().name);
+     nay.attr("address",childSnapshot.val().address);
      var itemlat = childSnapshot.val().lat;
      var itemlong = childSnapshot.val().long;
      venue.html(childSnapshot.val().name);
@@ -529,21 +532,25 @@
 ////////
 //Voting
 ////////
-$(document).on("click", ".yesBtn", function(){
-      database.ref("VotingBtns").push(
-      {
-      upvote: 1,
-      counter: 1,
-    });
-});
+  $(document).on("click", ".yesBtn", function(){
+        database.ref("VotingBtns").push(
+        {
+        venue: $(this).attr("venue"),
+        address: $(this).attr("address"),
+        upvote: 1,
+        counter: 1,
+      });
+  });
 
-$(document).on("click", ".noBtn", function(){
-      database.ref("VotingBtns").push(
-      {
-      downvote: -1,
-      counter: 1,
-    });
-});
+  $(document).on("click", ".noBtn", function(){
+        database.ref("VotingBtns").push(
+        {
+        venue: $(this).attr("venue"),
+        address: $(this).attr("address"),
+        downvote: -1,
+        counter: 1,
+      });
+  });
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
