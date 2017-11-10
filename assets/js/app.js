@@ -3,7 +3,7 @@
 //////////////////////
   //https://console.firebase.google.com/project/saturyay-1509769906764/database
   var config = {
-    apiKey: "AIzaSyBlA3lvNcU3AmMH-FOs_1d_mJn5J1TfE8o",
+    apiKey: "AIzaSyBVetMliqY5SedRbFNEyEebC3azC2A9lLw",
     authDomain: "saturyay-1509769906764.firebaseapp.com",
     databaseURL: "https://saturyay-1509769906764.firebaseio.com",
     projectId: "saturyay-1509769906764",
@@ -18,7 +18,7 @@
 // Set up Google API
 ////////////////////
   //Google Places API Key AIzaSyBqPqKqVgR6ng2_NNHhNqV4nX7LbbHJbqc;
-  var api="&key=AIzaSyBqPqKqVgR6ng2_NNHhNqV4nX7LbbHJbqc";
+  var api="&key=AIzaSyBVetMliqY5SedRbFNEyEebC3azC2A9lLw";
   var event = "";
   var elocation = "";
   var searchurl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+event+elocation+api;
@@ -43,6 +43,8 @@
   var bLatitude="";
   var bLongitude="";
   var uberPrice = $("<div>");
+  var ajaxinprocess= false;
+
   $(document).on("mouseover", ".uberbtn", function(){
     bLatitude = $(this).parent().attr("lat");
     bLongitude = $(this).parent().attr("long");
@@ -52,16 +54,24 @@
     //////////
     
 
-    uberPrice.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover");
+    uberPrice.attr("style","margin-left:1em; margin-top:-.5em;height: 30px; width: 100px; background-size: cover");
     uberPrice.attr("class"," uberpricing");
           
     $(this).append(uberPrice);
     $(this).attr("id",bLatitude);
 
 
-    console.log(bLatitude);
-    console.log(bLongitude);
-    UberAPI();
+    // console.log(bLatitude);
+    // console.log(bLongitude);
+        
+    if(ajaxinprocess === false) {
+      ajaxinprocess = true;
+      console.log("calling uber api");
+        UberAPI();
+    }
+    else{
+      console.log("Not calling uber api");
+    }
   });
 
 //////////////////
@@ -83,21 +93,18 @@
 
     var clientsecret = "yptEdY-aK8FgXvHh80nId9gTmwCYEqdjcreoIkP0";
 
-
-
     navigator.geolocation.watchPosition(function(position) {
     // Update latitude and longitude
       userLatitude = position.coords.latitude;
       userLongitude = position.coords.longitude;
-      console.log("User Lat: " + userLatitude);
-      console.log("User Long: " + userLongitude);
-      console.log(bLatitude);
-      console.log(bLongitude);
+      // console.log("User Lat: " + userLatitude);
+      // console.log("User Long: " + userLongitude);
+      // console.log(bLatitude);
+      // console.log(bLongitude);
       localStorage.setItem("Lat",userLatitude);
       localStorage.setItem("Long",userLongitude);
 
     });
-
 
     // Uber API Constants
     var uberClientId = "h31bv5vnzVyYRYhojvmy3tZdSd";
@@ -105,47 +112,56 @@
     
     var aLatitude = localStorage.getItem("Lat");
     var aLongitude = localStorage.getItem("Long");
+ 
 
-    console.log(bLatitude);
-    console.log(bLongitude);
+    // console.log(bLatitude);
+    // console.log(bLongitude);
 
-  var votingRef= database.ref("Voting");
-  votingRef.on('value', function(snapshot){
-    $(".calTBody").empty();
-    snapshot.forEach(function(childSnapshot) {
-      
-     var tableRow = $("<tr>");
-     var venue = $("<td>");
-     var time = $("<td>");
-     var address = $("<td>");
+    var votingRef= database.ref("Voting");
+    votingRef.on('value', function(snapshot){
+      $(".calTBody").empty();
+      snapshot.forEach(function(childSnapshot) {
+        
+       var tableRow = $("<tr>");
+       var venue = $("<td>");
+       var time = $("<td>");
+       var address = $("<td>");
 
-     var itemlat = childSnapshot.val().lat;
-     var itemlong = childSnapshot.val().long;
-     venue.html(childSnapshot.val().name);
-     time.html(childSnapshot.val().time);
-     address.html(childSnapshot.val().address);
-     
-     tableRow.append(venue);
-     tableRow.append(time);
-     tableRow.append(address);
+       var itemlat = childSnapshot.val().lat;
+       var itemlong = childSnapshot.val().long;
+       venue.html(childSnapshot.val().name);
+       time.html(childSnapshot.val().time);
+       address.html(childSnapshot.val().address);
+       
+       tableRow.append(venue);
+       tableRow.append(time);
+       tableRow.append(address);
 
-     $(".calTBody").append(tableRow);
+       $(".calTBody").append(tableRow);
       });
     });
 
     // Edwards Campus cords // var aLatitude = 38.8996479;  // var aLongitude = -94.7261206;
     //chicken n pickle's cords // var bLatitude = 39.1400216; // var bLongitude = -94.5799362;
 
-    navigator.geolocation.watchPosition(function(position) {
+    // navigator.geolocation.watchPosition(function(position) {
     // Query Uber API if needed
       getEstimatesForUserLocation(aLatitude, aLongitude);
-    });
+    // });
 
     function getEstimatesForUserLocation(latitude,longitude) {
       uberproxy = "https://cors-anywhere.herokuapp.com/";
     uberqueryURL = uberproxy + "https://api.uber.com/v1/estimates/price";
-      $.ajax({
+        console.log(bLongitude);
+        console.log(bLatitude); 
+       
+
+  
+       var uberajax = $.ajax({    
+          
+      
         url: uberqueryURL,
+        
         headers: {
             Authorization: "Token " + uberServerToken
         },
@@ -155,6 +171,7 @@
             end_latitude: bLatitude,
             end_longitude: bLongitude
         },
+        
 
         success: function(result) {
           uberX = "uberX " + result.prices[0].estimate;
@@ -177,10 +194,16 @@
           // uberestimatesDiv.append(uberSELECTP);
           uberPrice.empty();
           uberPrice.append(uberestimatesDiv);
-
+          uberajax.abort();
         }
-      });
-    }
+
+      })
+       .done(function(){
+          ajaxinprocess = false;  
+          console.log("false");     
+          console.log(ajaxinprocess);  
+       })
+    };
   }
 
 ////////////////////////////
@@ -253,6 +276,7 @@
 
           name = results[i].name;
           actDiv = $("<div>");
+          actDiv.addClass("resultDiv");
 
           //add attributes
           actDiv.attr("address", results[i].formatted_address);
@@ -267,6 +291,7 @@
             var imgDiv = $("<img>");
             imgDiv.attr("src",results[i].icon);
             imgDiv.attr("style","height: 20px");
+            imgDiv.addClass("wImg");
 
             //////////
             //add name
@@ -274,7 +299,7 @@
             var nameDiv = $("<p>");
             nameDiv.text(name);
             nameDiv.attr("style","height: 30px");
-
+            nameDiv.addClass("wName");
 
             ////////////////
             //button to link
@@ -283,7 +308,7 @@
             linkInput.text("view site");
             linkInput.attr("style","height: 30px ; margin-left:.5em");
             linkInput.attr("class","btn btn-primary");
-
+            linkInput.addClass("wWebsite");
             ///////////////////////////
             //button to add to calendar
             ///////////////////////////
@@ -293,26 +318,29 @@
             calendarinpt.attr("style","height: 30px");
             calendarinpt.attr("data-counter", counter);
             calendarinpt.addClass("calinput");
+            calendarinpt.addClass("wTime");
 
             var calendarbtn = $("<button>");
             calendarbtn.text("Add");
             calendarbtn.attr("style","height: 30px; margin-left:.5em");
             calendarbtn.attr("class","btn btn-danger calendaradd");
-
+            calendarbtn.addClass("wAdd");
             //////////
             //Uber API
             //////////
             var uberBtn = $("<button>");
 
-            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 100px; background-size: cover; background: url(assets/images/UberButtons/button.png) no-repeat");
+            uberBtn.attr("style","margin-left:.5em; height: 30px; width: 30px; background-size: cover; background: url(assets/images/UberButtons/button2.png) no-repeat");
             uberBtn.attr("class","btn btn-info uberbtn");
             uberBtn.attr("lat", results[i].geometry.location.lat);
             uberBtn.attr("long", results[i].geometry.location.lng);
-
+            uberBtn.addClass("wUber");
           //add child divs to actDiv
           actDiv.prepend("<br>");
           actDiv.append(imgDiv);
           actDiv.append(nameDiv);
+          actDiv.append("<br>");
+          actDiv.append("<br>");
           actDiv.append(calendarinpt);
           actDiv.append(calendarbtn);
           actDiv.append(linkInput);
@@ -367,16 +395,29 @@
      var venue = $("<td>");
      var time = $("<td>");
      var address = $("<td>");
+     var vote = $("<td>");
+
+     var yay = $("<button>");
+     var nay = $("<button>");
+
+     yay.addClass("btn btn-primary yesBtn");
+     nay.addClass("btn btn-danger noBtn");
+
+     yay.html("YES");
+     nay.html("NO");
 
      var itemlat = childSnapshot.val().lat;
      var itemlong = childSnapshot.val().long;
      venue.html(childSnapshot.val().name);
      time.html(childSnapshot.val().time);
      address.html(childSnapshot.val().address);
+
+     vote.append(yay,nay);
      
      tableRow.append(venue);
      tableRow.append(time);
      tableRow.append(address);
+     tableRow.append(vote);
 
      $(".calTBody").append(tableRow);
       });
@@ -446,6 +487,10 @@
       newTR.append(newtime);
       newTR.append(newcomm);
       //console.log(newTR);
+      newTR.addClass("commentRow");
+      newuser.addClass("cUser");
+      newtime.addClass("cTime");
+      newcomm.addClass("cComm");
 
      $(".comment-data-table").prepend(newTR);
      $(".comments").val('');
@@ -481,6 +526,24 @@
       });
     }
 
+////////
+//Voting
+////////
+$(document).on("click", ".yesBtn", function(){
+      database.ref("VotingBtns").push(
+      {
+      upvote: 1,
+      counter: 1,
+    });
+});
+
+$(document).on("click", ".noBtn", function(){
+      database.ref("VotingBtns").push(
+      {
+      downvote: -1,
+      counter: 1,
+    });
+});
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
