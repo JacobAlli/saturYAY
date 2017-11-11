@@ -488,7 +488,7 @@
       newcomm.addClass("cComm");
 
      $(".comment-data-table").prepend(newTR);
-     $(".comments").val('');
+     // $(".comments").val('');
       });
     });
 
@@ -699,7 +699,7 @@
   //https://dashboard.emailjs.com/
   //https://dashboard.emailjs.com/integration
   var sendText= database.ref("Comments");
-   sendText.on("click", "#entercom", function(snapshot){
+   sendText.on('value', function(snapshot){
 
   (function(){
       emailjs.init("user_VUMzeodvx1oP9NTzNsO7c");
