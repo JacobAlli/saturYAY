@@ -117,32 +117,9 @@
     // console.log(bLatitude);
     // console.log(bLongitude);
 
-    var votingRef= database.ref("Voting");
-    votingRef.on('value', function(snapshot){
-      $(".calTBody").empty();
-      snapshot.forEach(function(childSnapshot) {
-        
-       var tableRow = $("<tr>");
-       var venue = $("<td>");
-       var time = $("<td>");
-       var address = $("<td>");
-
-       var itemlat = childSnapshot.val().lat;
-       var itemlong = childSnapshot.val().long;
-       venue.html(childSnapshot.val().name);
-       time.html(childSnapshot.val().time);
-       address.html(childSnapshot.val().address);
-       
-       tableRow.append(venue);
-       tableRow.append(time);
-       tableRow.append(address);
-
-       $(".calTBody").append(tableRow);
-      });
-    });
-
+   
     // Edwards Campus cords // var aLatitude = 38.8996479;  // var aLongitude = -94.7261206;
-    //chicken n pickle's cords // var bLatitude = 39.1400216; // var bLongitude = -94.5799362;
+    // chicken n pickle's cords // var bLatitude = 39.1400216; // var bLongitude = -94.5799362;
 
     // navigator.geolocation.watchPosition(function(position) {
     // Query Uber API if needed
@@ -396,22 +373,28 @@
      var time = $("<td>");
      var address = $("<td>");
      var vote = $("<td>");
+     var add = $("<td>");
 
      var yay = $("<button>");
      var yayCount = $("<span>");
      var nay = $("<button>");
+     var addBtn = $("<button>");
      var nayCount = $("<span>");
 
      yay.addClass("btn btn-primary yesBtn");
      nay.addClass("btn btn-danger noBtn");
+     addBtn.addClass("btn btn-success agendaButton");
 
      yayCount.html('&emsp;' + childSnapshot.val().upvote);
      nayCount.html('&emsp;' + childSnapshot.val().downvote);
 
+     addBtn.html("&#9786;")
      yay.html("YES");
      yay.append(yayCount);
      nay.html("NO");
      nay.append(nayCount);
+     addBtn.attr("venue",childSnapshot.val().name);
+     addBtn.attr("address",childSnapshot.val().address);
      yay.attr("venue",childSnapshot.val().name);
      yay.attr("address",childSnapshot.val().address);
      nay.attr("venue",childSnapshot.val().name);
@@ -421,6 +404,7 @@
      venue.html(childSnapshot.val().name);
      time.html(childSnapshot.val().time);
      address.html(childSnapshot.val().address);
+     address.addClass('smallAddress');
 
      vote.append(yay,nay);
      
@@ -428,6 +412,7 @@
      tableRow.append(time);
      tableRow.append(address);
      tableRow.append(vote);
+     tableRow.append(addBtn);
 
      $(".calTBody").append(tableRow);
       });
@@ -657,144 +642,80 @@ if(localStorage.getItem('votedVenuesN') !== null && localStorage.getItem('votedV
               });
           };  
   });
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
 
-////////
-// Notes
-////////
-  ////////////////
-  //near by search
-  ////////////////
-    //https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+  $(document).on("click", ".agendaButton", function(){
 
-    //required
-      //key
-      //location - latitude,longitude.
-      //radius
+        var venueName = $(this).attr("venue");
 
-    //Optional
-      //rankby
-      //language
-      //minprice
-      //maxprice
-      //name
-      //opennow
-      //type
-      //pagetoken
+        database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                console.log(snapshot.val());
+                snapshot.forEach(function(childSnap){
 
-  /////////////
-  //Text Search
-  /////////////
-    //https://maps.googleapis.com/maps/api/place/textsearch/json?parameters
-    //ex: https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Sydney&key=
-    //Required
-      //query
-      //key
+                    console.log(childSnap.val());
+                    console.log(childSnap.val().name);
+                    var childName = childSnap.key;
+                    var venueA = childSnap.val().name;
+                    var addressA = childSnap.val().address;
+                    var timeA = childSnap.val().time;
 
-    //Optional
-      //location
-      //radius
-      //language
-      //minprice
-      //opennow
-      //pagetoken
-      //type
-        //Here is a complete list of types, we can have it in a list for them.
-          // accounting
-          // airport
-          // amusement_park
-          // aquarium
-          // art_gallery
-          // atm
-          // bakery
-          // bank
-          // bar
-          // beauty_salon
-          // bicycle_store
-          // book_store
-          // bowling_alley
-          // bus_station
-          // cafe
-          // campground
-          // car_dealer
-          // car_rental
-          // car_repair
-          // car_wash
-          // casino
-          // cemetery
-          // church
-          // city_hall
-          // clothing_store
-          // convenience_store
-          // courthouse
-          // dentist
-          // department_store
-          // doctor
-          // electrician
-          // electronics_store
-          // embassy
-          // establishment (deprecated)
-          // finance (deprecated)
-          // fire_station
-          // florist
-          // food (deprecated)
-          // funeral_home
-          // furniture_store
-          // gas_station
-          // general_contractor (deprecated)
-          // grocery_or_supermarket (deprecated)
-          // gym
-          // hair_care
-          // hardware_store
-          // health (deprecated)
-          // hindu_temple
-          // home_goods_store
-          // hospital
-          // insurance_agency
-          // jewelry_store
-          // laundry
-          // lawyer
-          // library
-          // liquor_store
-          // local_government_office
-          // locksmith
-          // lodging
-          // meal_delivery
-          // meal_takeaway
-          // mosque
-          // movie_rental
-          // movie_theater
-          // moving_company
-          // museum
-          // night_club
-          // painter
-          // park
-          // parking
-          // pet_store
-          // pharmacy
-          // physiotherapist
-          // place_of_worship (deprecated)
-          // plumber
-          // police
-          // post_office
-          // real_estate_agency
-          // restaurant
-          // roofing_contractor
-          // rv_park
-          // school
-          // shoe_store
-          // shopping_mall
-          // spa
-          // stadium
-          // storage
-          // store
-          // subway_station
-          // synagogue
-          // taxi_stand
-          // train_station
-          // transit_station
-          // travel_agency
-          // university
-          // veterinary_care
-          // zoo
+                    database.ref("Agenda").push({
+                      venue: venueA,
+                      address: addressA,
+                      time: timeA
+                    });
+                });
+        });
+  });
+
+  var agendaRef= database.ref("Agenda");
+  agendaRef.on('value', function(snapshot){
+        $(".agendaTable").empty();
+        snapshot.forEach(function(childSnapshot) {
+
+        var agendaRow = $("<tr>");
+        var venue = $("<td>");
+        var address = $("<td>");
+        var time = $("<td>");
+        var deletee = $("<td>");
+        var delBtn = $("<button>");
+
+        console.log(childSnapshot.val().venue);
+
+        venue.html(childSnapshot.val().venue);
+        address.html(childSnapshot.val().address);
+        time.html(childSnapshot.val().time);
+
+        agendaRow.append(venue);
+        agendaRow.append(address);
+        agendaRow.append(time);
+
+        $(".agendaTable").append(agendaRow);
+      });
+});
+
+//////////////////////////////////
+// Send text if Firebase changes//
+//////////////////////////////////
+  //https://dashboard.emailjs.com/
+  //https://dashboard.emailjs.com/integration
+var sendText= database.ref("Comments");
+  sendText.on('value', function(snapshot){
+
+  (function(){
+      emailjs.init("user_VUMzeodvx1oP9NTzNsO7c");
+      var service_id = 'gmail';
+      var template_id = 'didthiswork';
+      var template_id2 = 'renee';
+      var template_id3 = 'jacob';
+      var template_params = {
+      name: 'SaturYAY',
+      reply_email: 'ben.m.newell@gmail.com',
+      message: 'HAI!'
+      };
+
+     emailjs.send(service_id,template_id,template_params);
+      emailjs.send(service_id,template_id2,template_params);
+      emailjs.send(service_id,template_id3,template_params);
+   })();
+
+});

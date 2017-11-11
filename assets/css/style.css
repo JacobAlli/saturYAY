@@ -119,6 +119,16 @@ h1{
 	overflow-y:scroll;
 }
 
+.agendaButton{
+	margin-top: 8px;
+	font-size: 30px;
+	height: 50px;
+}
+
+.smallAddress{
+	font-size: 10px;
+}
+
 .empty-box{
 	color: rgba(151, 152, 163, 0.5);
 	text-align: center;
