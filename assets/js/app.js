@@ -526,179 +526,179 @@
 ////////
 
 
-var newUpvote;
+  var newUpvote;
 
-var votedVenuesY = [];
+  var votedVenuesY = [];
 
-var votedVenuesN = [];
+  var votedVenuesN = [];
 
-if(localStorage.getItem('votedVenuesY') !== null && localStorage.getItem('votedVenuesY') !== "" ){
-  votedVenuesY = JSON.parse(localStorage.getItem('votedVenuesY'));
-};
+  if(localStorage.getItem('votedVenuesY') !== null && localStorage.getItem('votedVenuesY') !== "" ){
+    votedVenuesY = JSON.parse(localStorage.getItem('votedVenuesY'));
+  };
 
-if(localStorage.getItem('votedVenuesN') !== null && localStorage.getItem('votedVenuesN') !== "" ){
-  votedVenuesN = JSON.parse(localStorage.getItem('votedVenuesN'));
-};
+  if(localStorage.getItem('votedVenuesN') !== null && localStorage.getItem('votedVenuesN') !== "" ){
+    votedVenuesN = JSON.parse(localStorage.getItem('votedVenuesN'));
+  };
 
-  $(document).on("click", ".yesBtn", function(){
+    $(document).on("click", ".yesBtn", function(){
 
-          votedVenuesY.push($(this).attr("venue"));
+            votedVenuesY.push($(this).attr("venue"));
 
-          localStorage.setItem("votedVenuesY", JSON.stringify(votedVenuesY) );
+            localStorage.setItem("votedVenuesY", JSON.stringify(votedVenuesY) );
 
-          var venueName = $(this).attr("venue");
+            var venueName = $(this).attr("venue");
 
-          var hasVoted = false;
+            var hasVoted = false;
 
-          for(i=0; i<votedVenuesY.length -1; i++){
-              var venue = votedVenuesY[i];
-              if(venue === venueName){
-                hasVoted = true;
-              }
-          };
+            for(i=0; i<votedVenuesY.length -1; i++){
+                var venue = votedVenuesY[i];
+                if(venue === venueName){
+                  hasVoted = true;
+                }
+            };
 
-          if(hasVoted === true){
+            if(hasVoted === true){
 
-          }
-          else{
-          
-              database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
-                console.log(snapshot.val())
-                snapshot.forEach(function(childSnap){
-                  
-                  console.log(childSnap.val());
-                      var childName = childSnap.key;
-                      var oldUpvote = childSnap.val().upvote;
-                      newUpvote = oldUpvote + 1;
-                      console.log(newUpvote);
-                      updateVotesY(newUpvote, venueName, childName);
-
-                        function updateVotesY(newUpvote, venueName, childName){
-                            
-                            var postData = {
-                                upvote: newUpvote,
-                            };
-
-                            var venueRef = database.ref().child('Voting').child(childName);
-
-                            venueRef.update(postData);
-                        };
-
-
-                });
-              });
-          };  
-  });
-
-
-
-
-  $(document).on("click", ".noBtn", function(){
-
-          votedVenuesN.push($(this).attr("venue"));
-          console.log("hi");
-          localStorage.setItem("votedVenuesN", JSON.stringify(votedVenuesN) );
-
-          var venueName = $(this).attr("venue");
-
-          var hasVoted = false;
-
-          for(i=0; i<votedVenuesN.length -1; i++){
-              var venue = votedVenuesN[i];
-              if(venue === venueName){
-                hasVoted = true;
-              }
-          };
-
-          if(hasVoted === true){
-              console.log("hi");
-          }
-          else{
-          
-              database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
-                console.log(snapshot.val())
-                snapshot.forEach(function(childSnap){
-                  
-                  console.log(childSnap.val());
-                      var childName = childSnap.key;
-                      var oldDownvote = childSnap.val().downvote;
-                      newDownvote = oldDownvote + 1;
-                      console.log(newDownvote);
-                      updateVotesN(newDownvote, venueName, childName);
-
-                        function updateVotesN(newDownvote, venueName, childName){
-                            
-                            var postData = {
-                                downvote: newDownvote,
-                            };
-
-                            var venueRef = database.ref().child('Voting').child(childName);
-
-                            venueRef.update(postData);
-                        };
-
-
-                });
-              });
-          };  
-  });
-
-  $(document).on("click", ".agendaButton", function(){
-
-        var venueName = $(this).attr("venue");
-
-        database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
-                console.log(snapshot.val());
-                snapshot.forEach(function(childSnap){
-
+            }
+            else{
+            
+                database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                  console.log(snapshot.val())
+                  snapshot.forEach(function(childSnap){
+                    
                     console.log(childSnap.val());
-                    console.log(childSnap.val().name);
-                    var childName = childSnap.key;
-                    var venueA = childSnap.val().name;
-                    var addressA = childSnap.val().address;
-                    var timeA = childSnap.val().time;
+                        var childName = childSnap.key;
+                        var oldUpvote = childSnap.val().upvote;
+                        newUpvote = oldUpvote + 1;
+                        console.log(newUpvote);
+                        updateVotesY(newUpvote, venueName, childName);
 
-                    database.ref("Agenda").push({
-                      venue: venueA,
-                      address: addressA,
-                      time: timeA
-                    });
+                          function updateVotesY(newUpvote, venueName, childName){
+                              
+                              var postData = {
+                                  upvote: newUpvote,
+                              };
+
+                              var venueRef = database.ref().child('Voting').child(childName);
+
+                              venueRef.update(postData);
+                          };
+
+
+                  });
                 });
+            };  
+    });
+
+
+
+
+    $(document).on("click", ".noBtn", function(){
+
+            votedVenuesN.push($(this).attr("venue"));
+            console.log("hi");
+            localStorage.setItem("votedVenuesN", JSON.stringify(votedVenuesN) );
+
+            var venueName = $(this).attr("venue");
+
+            var hasVoted = false;
+
+            for(i=0; i<votedVenuesN.length -1; i++){
+                var venue = votedVenuesN[i];
+                if(venue === venueName){
+                  hasVoted = true;
+                }
+            };
+
+            if(hasVoted === true){
+                console.log("hi");
+            }
+            else{
+            
+                database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                  console.log(snapshot.val())
+                  snapshot.forEach(function(childSnap){
+                    
+                    console.log(childSnap.val());
+                        var childName = childSnap.key;
+                        var oldDownvote = childSnap.val().downvote;
+                        newDownvote = oldDownvote + 1;
+                        console.log(newDownvote);
+                        updateVotesN(newDownvote, venueName, childName);
+
+                          function updateVotesN(newDownvote, venueName, childName){
+                              
+                              var postData = {
+                                  downvote: newDownvote,
+                              };
+
+                              var venueRef = database.ref().child('Voting').child(childName);
+
+                              venueRef.update(postData);
+                          };
+
+
+                  });
+                });
+            };  
+    });
+
+    $(document).on("click", ".agendaButton", function(){
+
+          var venueName = $(this).attr("venue");
+
+          database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                  console.log(snapshot.val());
+                  snapshot.forEach(function(childSnap){
+
+                      console.log(childSnap.val());
+                      console.log(childSnap.val().name);
+                      var childName = childSnap.key;
+                      var venueA = childSnap.val().name;
+                      var addressA = childSnap.val().address;
+                      var timeA = childSnap.val().time;
+
+                      database.ref("Agenda").push({
+                        venue: venueA,
+                        address: addressA,
+                        time: timeA
+                      });
+                  });
+          });
+    });
+
+    var agendaRef= database.ref("Agenda");
+    agendaRef.on('value', function(snapshot){
+          $(".agendaTable").empty();
+          snapshot.forEach(function(childSnapshot) {
+
+          var agendaRow = $("<tr>");
+          var venue = $("<td>");
+          var address = $("<td>");
+          var time = $("<td>");
+          var deletee = $("<td>");
+          var delBtn = $("<button>");
+
+          console.log(childSnapshot.val().venue);
+
+          venue.html(childSnapshot.val().venue);
+          address.html(childSnapshot.val().address);
+          time.html(childSnapshot.val().time);
+
+          agendaRow.append(venue);
+          agendaRow.append(address);
+          agendaRow.append(time);
+
+          $(".agendaTable").append(agendaRow);
         });
   });
-
-  var agendaRef= database.ref("Agenda");
-  agendaRef.on('value', function(snapshot){
-        $(".agendaTable").empty();
-        snapshot.forEach(function(childSnapshot) {
-
-        var agendaRow = $("<tr>");
-        var venue = $("<td>");
-        var address = $("<td>");
-        var time = $("<td>");
-        var deletee = $("<td>");
-        var delBtn = $("<button>");
-
-        console.log(childSnapshot.val().venue);
-
-        venue.html(childSnapshot.val().venue);
-        address.html(childSnapshot.val().address);
-        time.html(childSnapshot.val().time);
-
-        agendaRow.append(venue);
-        agendaRow.append(address);
-        agendaRow.append(time);
-
-        $(".agendaTable").append(agendaRow);
-      });
-});
 
 //////////////////////////////////
 // Send text if Firebase changes//
 //////////////////////////////////
   //https://dashboard.emailjs.com/
   //https://dashboard.emailjs.com/integration
-var sendText= database.ref("Comments");
+  var sendText= database.ref("Comments");
    sendText.on("click", "#entercom", function(snapshot){
 
   (function(){
@@ -718,4 +718,4 @@ var sendText= database.ref("Comments");
       emailjs.send(service_id,template_id3,template_params);
    })();
 
-});
+  });
