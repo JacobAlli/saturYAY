@@ -230,7 +230,7 @@ h1{
 
 .yesBtn{
 	height: 25px;
-	width: 45px;
+	width: 80px;
 	text-align: center;
 	vertical-align: center;
 	color: white;
@@ -240,7 +240,7 @@ h1{
 
 .noBtn{
 	height: 25px;
-	width: 45px;
+	width: 80px;
 	text-align: middle;
 	vertical-align: middle;
 	color: white;

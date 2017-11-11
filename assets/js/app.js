@@ -398,13 +398,20 @@
      var vote = $("<td>");
 
      var yay = $("<button>");
+     var yayCount = $("<span>");
      var nay = $("<button>");
+     var nayCount = $("<span>");
 
      yay.addClass("btn btn-primary yesBtn");
      nay.addClass("btn btn-danger noBtn");
 
+     yayCount.html('&emsp;' + childSnapshot.val().upvote);
+     nayCount.html('&emsp;' + childSnapshot.val().downvote);
+
      yay.html("YES");
+     yay.append(yayCount);
      nay.html("NO");
+     nay.append(nayCount);
      yay.attr("venue",childSnapshot.val().name);
      yay.attr("address",childSnapshot.val().address);
      nay.attr("venue",childSnapshot.val().name);
@@ -532,26 +539,124 @@
 ////////
 //Voting
 ////////
+
+
+var newUpvote;
+
+var votedVenuesY = [];
+
+var votedVenuesN = [];
+
+if(localStorage.getItem('votedVenuesY') !== null && localStorage.getItem('votedVenuesY') !== "" ){
+  votedVenuesY = JSON.parse(localStorage.getItem('votedVenuesY'));
+};
+
+if(localStorage.getItem('votedVenuesN') !== null && localStorage.getItem('votedVenuesN') !== "" ){
+  votedVenuesN = JSON.parse(localStorage.getItem('votedVenuesN'));
+};
+
   $(document).on("click", ".yesBtn", function(){
-        database.ref("VotingBtns").push(
-        {
-        venue: $(this).attr("venue"),
-        address: $(this).attr("address"),
-        upvote: 1,
-        counter: 1,
-      });
+
+          votedVenuesY.push($(this).attr("venue"));
+
+          localStorage.setItem("votedVenuesY", JSON.stringify(votedVenuesY) );
+
+          var venueName = $(this).attr("venue");
+
+          var hasVoted = false;
+
+          for(i=0; i<votedVenuesY.length -1; i++){
+              var venue = votedVenuesY[i];
+              if(venue === venueName){
+                hasVoted = true;
+              }
+          };
+
+          if(hasVoted === true){
+
+          }
+          else{
+          
+              database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                console.log(snapshot.val())
+                snapshot.forEach(function(childSnap){
+                  
+                  console.log(childSnap.val());
+                      var childName = childSnap.key;
+                      var oldUpvote = childSnap.val().upvote;
+                      newUpvote = oldUpvote + 1;
+                      console.log(newUpvote);
+                      updateVotesY(newUpvote, venueName, childName);
+
+                        function updateVotesY(newUpvote, venueName, childName){
+                            
+                            var postData = {
+                                upvote: newUpvote,
+                            };
+
+                            var venueRef = database.ref().child('Voting').child(childName);
+
+                            venueRef.update(postData);
+                        };
+
+
+                });
+              });
+          };  
   });
+
+
+
 
   $(document).on("click", ".noBtn", function(){
-        database.ref("VotingBtns").push(
-        {
-        venue: $(this).attr("venue"),
-        address: $(this).attr("address"),
-        downvote: -1,
-        counter: 1,
-      });
-  });
 
+          votedVenuesN.push($(this).attr("venue"));
+          console.log("hi");
+          localStorage.setItem("votedVenuesN", JSON.stringify(votedVenuesN) );
+
+          var venueName = $(this).attr("venue");
+
+          var hasVoted = false;
+
+          for(i=0; i<votedVenuesN.length -1; i++){
+              var venue = votedVenuesN[i];
+              if(venue === venueName){
+                hasVoted = true;
+              }
+          };
+
+          if(hasVoted === true){
+              console.log("hi");
+          }
+          else{
+          
+              database.ref().child('Voting').orderByChild("name").equalTo(venueName).once("value", function(snapshot) {
+                console.log(snapshot.val())
+                snapshot.forEach(function(childSnap){
+                  
+                  console.log(childSnap.val());
+                      var childName = childSnap.key;
+                      var oldDownvote = childSnap.val().downvote;
+                      newDownvote = oldDownvote + 1;
+                      console.log(newDownvote);
+                      updateVotesN(newDownvote, venueName, childName);
+
+                        function updateVotesN(newDownvote, venueName, childName){
+                            
+                            var postData = {
+                                downvote: newDownvote,
+                            };
+
+                            var venueRef = database.ref().child('Voting').child(childName);
+
+                            venueRef.update(postData);
+                        };
+
+
+                });
+              });
+          };  
+  });
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
