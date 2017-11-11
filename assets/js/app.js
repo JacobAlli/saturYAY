@@ -699,7 +699,7 @@ if(localStorage.getItem('votedVenuesN') !== null && localStorage.getItem('votedV
   //https://dashboard.emailjs.com/
   //https://dashboard.emailjs.com/integration
 var sendText= database.ref("Comments");
-  sendText.on('value', function(snapshot){
+   sendText.on("click", "#entercom", function(snapshot){
 
   (function(){
       emailjs.init("user_VUMzeodvx1oP9NTzNsO7c");
